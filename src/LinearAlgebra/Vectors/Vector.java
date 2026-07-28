@@ -63,7 +63,10 @@ public class Vector extends AbstractVector {
         return new Vector(newVectorArray);
     }
 
-    // Testing method
+    /**
+     * Testing method for this class
+     * @param args None
+     */
     public static void main(String[] args) {
         // Testing Vector construction
         System.out.println("Creating Vectors");
