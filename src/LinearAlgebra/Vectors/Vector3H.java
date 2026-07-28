@@ -105,4 +105,40 @@ public class Vector3H extends Vector {
         requeryMag = true;
         this.elements[3] = newValue;
     }
+
+    /**
+     * Method for testing the class
+     * @param args None
+     * For testing of superclass and its methods see {@link Vector#main(String[])}
+     */
+    public static void main(String[] args) {
+        // Testing construction
+        System.out.println("Testing valid construction");
+        Vector3H v = new Vector3H();
+        Vector3H v2 = new Vector3H(3d, 1d);
+        Vector3H v3 = new Vector3H(new Double[] {1d, 2d, 3d, 1d});
+
+        // Testing invalid construction
+        System.out.println("Testing invalid construction");
+        try {
+            new Vector3H(new Double[] {1d, 1d, 1d, 1d, 1d});
+        } catch (InvalidVectorLengthException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Testing specialized getters
+        System.out.println("Testing specialized getters");
+        System.out.println(v.x());
+        System.out.println(v.y());
+        System.out.println(v.z());
+        System.out.println(v.w());
+
+        // Testing specialized setters
+        System.out.println("Testing specialized setters: setting all 6's");
+        v.x(6d);
+        v.y(6d);
+        v.z(6d);
+        v.w(6d);
+        System.out.println(v);
+    }
 }
