@@ -66,7 +66,8 @@ public abstract class AbstractVector implements Collection<Double> {
     }
 
     /**
-     * Calculates the vectors normal
+     * Calculates the vectors normal and set's itself to that
+     * @throws ArithmeticException if it's a 0 length vector due to divide by zero error
      */
     public void normalize() {
         Double inverseMag = 1 / getMag();  // We calculate the inverse so normalization can use multiplication instead of repeated division
@@ -86,6 +87,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * @param v1 The first vector
      * @param v2 The second vector
      * @return The dot product of the two vectors
+     * @throws VectorLengthMismatch if the vectors don't have matching length
      */
     public static Double dotProduct(AbstractVector v1, AbstractVector v2) {
         if (v1.size() != v2.size()) throw new VectorLengthMismatch("Vectors must have matching length to calculate dot product");
@@ -103,6 +105,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * Returns the dot product of this vector and another vector v2
      * @param v2 the vector to multiply this vector by
      * @return The dot product of the two vectors
+     * @throws VectorLengthMismatch if the vectors don't have matching length
      */
     public Double dotProduct(AbstractVector v2) {
         return dotProduct(this, v2);
