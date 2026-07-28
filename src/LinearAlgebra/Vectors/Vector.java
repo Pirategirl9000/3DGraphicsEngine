@@ -3,9 +3,7 @@ package LinearAlgebra.Vectors;
 
 import java.util.Arrays;
 
-//TODO: Implement Normalize method
 //TODO: Synchronize methods
-//TODO: Implement method for Dot Product
 //TODO: Implement method for cross product
 //TODO: Implement method for multiplication by matrix
 
