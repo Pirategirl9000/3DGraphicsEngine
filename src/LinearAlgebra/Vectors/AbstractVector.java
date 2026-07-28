@@ -1,6 +1,5 @@
 package LinearAlgebra.Vectors;
 
-import LinearAlgebra.VectorLengthMismatch;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;

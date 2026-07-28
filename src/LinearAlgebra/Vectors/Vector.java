@@ -3,8 +3,6 @@ package LinearAlgebra.Vectors;
 
 import java.util.Arrays;
 
-//TODO: Synchronize methods
-//TODO: Implement method for cross product
 //TODO: Implement method for multiplication by matrix
 
 /**
@@ -22,9 +20,6 @@ public class Vector extends AbstractVector {
 
         this.elements = new Double[size];
         Arrays.fill(elements, initialValue);
-
-        this.magnitude = size * initialValue;
-        requeryMag = false;
     }
 
     /**

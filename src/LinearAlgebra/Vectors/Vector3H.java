@@ -1,43 +1,28 @@
 package LinearAlgebra.Vectors;
 
-//TODO: Add shortcuts for performing linear transformations on these vectors
+//TODO: Add methods for linear transformations
 
 /**
- * Vector for managing 3D objects
+ * A class for managing 3D homogenous vectors
  */
-public class Vector3 extends Vector {
-    /**
-     * Creates a new 3D vector from an array of doubles
-     * @param elements The array of doubles for the vector to use
-     */
-    public Vector3(Double[] elements) {
-        this(elements[0], elements[1], elements[2]);
+public class Vector3H extends Vector {
 
-        if (elements.length > 3) throw new InvalidVectorLengthException("Vector3 must have length of 3");
+    public Vector3H(Double initialValue, Double homogenousValue) {
+        super(4, initialValue);
+        this.elements[3] = homogenousValue;
     }
 
-    public Vector3(Double x, Double y, Double z) {
-        super(new Double[] {x,y,z});
+    public Vector3H(Double[] elements) {
+        super(elements);
+
+        if (elements.length != 4) {
+            throw new InvalidVectorLengthException("Vector3H must have 4 elements, three coordinate points and a homogenous coordinate");
+        }
     }
 
-    /**
-     * Creates a new 3D vector with initial values of 0.0
-     */
-    public Vector3() {
-        super(3, 0.0);
-    }
-
-    /**
-     * Returns the cross product of this Vector3 and another
-     * @param v2 The other Vector3 to calculate the cross product of
-     * @return resultant Vector3
-     */
-    public Vector3 crossProduct(Vector3 v2) {
-        return new Vector3(
-                this.y() * v2.z() + this.z() * v2.y(),
-                this.z() * v2.x() + this.x() * v2.z(),
-                this.x() * v2.y() + this.y() * v2.x()
-        );
+    public Vector3H() {
+        super(4, 0.0);
+        this.elements[3] = 1.0;
     }
 
     /**
@@ -65,6 +50,14 @@ public class Vector3 extends Vector {
     }
 
     /**
+     * Shorthand for retrieving the fourth, homogenous, element of the Vector
+     * @return element at index 3
+     */
+    public Double w() {
+        return this.elements[3];
+    }
+
+    /**
      * Shorthand for changing the first element of the Vector
      * @param newValue The new value for the element
      */
@@ -89,5 +82,14 @@ public class Vector3 extends Vector {
     public void z(Double newValue) {
         requeryMag = true;
         this.elements[2] = newValue;
+    }
+
+    /**
+     * Shorthand for changing the fourth, homegenous, element of the Vector
+     * @param newValue The new value for the element
+     */
+    public void w(double newValue) {
+        requeryMag = true;
+        this.elements[3] = newValue;
     }
 }
