@@ -1,64 +1,30 @@
-package LinearAlgebra;
+package LinearAlgebra.Vectors;
 
+import LinearAlgebra.VectorLengthMismatch;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-//TODO: Implement Normalize method
-//TODO: Synchronize methods
-//TODO: Implement method for Dot Product
-//TODO: Implement method for cross product
-//TODO: Implement method for multiplication by matrix
-public class Vector implements Collection<Double> {
-    private Double[] elements;
+/**
+ * Abstract class for representing a Vector
+ */
+public abstract class AbstractVector implements Collection<Double> {
+    /**
+     * The elements of this Vector
+     */
+    protected Double[] elements;
 
     /**
      * Refers to the length of the Vector not the number of elements
      */
-    private Double length;
+    protected Double length;
 
     /**
      * Whether we need to requery the length on next getLength() call
      */
-    private boolean requeryLength = true;
-
-    /**
-     * Creates a new Vector with a set size and initial values for all elements
-     * @param size The size of the Vector
-     * @param initialValue The value to initialize all elements to
-     * @throws IllegalArgumentException If Vector has size less than or equal to 1
-     */
-    public Vector(int size, Double initialValue) {
-        if (size <= 1) throw new IllegalArgumentException("Vectors must have size greater than 1");
-
-        this.elements = new Double[size];
-        Arrays.fill(elements, initialValue);
-
-        this.length = size * initialValue;
-        requeryLength = false;
-    }
-
-    /**
-     * Creates a new Vector with a set size and 0.0 starting values
-     * @param size The size of the Vector
-     * @throws IllegalArgumentException If Vector has size less than or equal to 1
-     */
-    public Vector(int size) {
-        this(size, 0.0);
-    }
-
-    /**
-     * Creates a new Vector from an array of Doubles
-     * @param elements The elements for the new Vector
-     * @throws IllegalArgumentException If Vector has size less than or equal to 1
-     */
-    public Vector(Double[] elements) {
-        if (elements.length <= 1) throw new IllegalArgumentException("Vectors must have size greater than 1");
-        this.elements = elements;
-    }
+    protected boolean requeryLength = true;
 
     /**
      * Gets the element at the given index
@@ -82,57 +48,6 @@ public class Vector implements Collection<Double> {
     }
 
     /**
-     * Shorthand for retrieving the first element of the Vector
-     * @return element at index 0
-     */
-    public Double x() {
-        return this.elements[0];
-    }
-
-    /**
-     * Shorthand for retrieving the second element of the Vector
-     * @return element at index 1
-     */
-    public Double y() {
-        return this.elements[1];
-    }
-
-    /**
-     * Shorthand for retrieving the third element of the Vector
-     * @return element at index 2
-     */
-    public Double z() {
-        return this.elements[2];
-    }
-
-    /**
-     * Shorthand for changing the first element of the Vector
-     * @param newValue The new value for the element
-     */
-    public void x(Double newValue) {
-        requeryLength = true;
-        this.elements[0] = newValue;
-    }
-
-    /**
-     * Shorthand for changing the second element of the Vector
-     * @param newValue The new value for the element
-     */
-    public void y(Double newValue) {
-        requeryLength = true;
-        this.elements[1] = newValue;
-    }
-
-    /**
-     * Shorthand for changing the third element of the Vector
-     * @param newValue The new value for the element
-     */
-    public void z(Double newValue) {
-        requeryLength = true;
-        this.elements[2] = newValue;
-    }
-
-    /**
      * Returns the length of the Vector<br>
      * This refers to the length of the Vector (all elements summed) not the size of the underlying array
      * @return The length of the Vector
@@ -151,10 +66,53 @@ public class Vector implements Collection<Double> {
     }
 
     /**
+     * Calculates the vectors normal
+     */
+    public void normalize() {
+        Double lengthInv = 1 / getLength();  // We calculate the inverse so normalization can use multiplication instead of repeated division
+
+        Double[] newVectorArray = new Double[elements.length];
+
+        for (int i = 0; i < elements.length; i++) {
+            newVectorArray[i] = lengthInv * elements[i];
+        }
+
+        this.elements = newVectorArray;
+    }
+
+    /**
+     * Calculates the dot product of two vectors
+     * @param v1 The first vector
+     * @param v2 The second vector
+     * @return The dot product of the two vectors
+     */
+    public static Double dotProduct(AbstractVector v1, AbstractVector v2) {
+        if (v1.size() != v2.size()) throw new VectorLengthMismatch("Vectors must have matching length to calculate dot product");
+
+        double dp = 0.0;
+
+        for (int i = 0; i < v1.size(); i++) {
+            dp += v1.get(i) * v2.get(i);
+        }
+
+        return dp;
+    }
+
+    /**
+     * Returns the dot product of this vector and another vector v2
+     * @param v2 the vector to multiply this vector by
+     * @return The dot product of the two vectors
+     */
+    public Double dotProduct(AbstractVector v2) {
+        return dotProduct(this, v2);
+    }
+
+    /**
      * Returns a String representation of the Vector<br>
      * This is not a thread safe operation
      * @return String representation of the Vector
      */
+    @Override
     public String toString() {
         int length = elements.length;
 
@@ -169,7 +127,6 @@ public class Vector implements Collection<Double> {
 
         return sb.toString();
     }
-
 
     //----------------------------------------------------- COLLECTION METHODS -----------------------------------------------------//
     @Override
@@ -265,10 +222,4 @@ public class Vector implements Collection<Double> {
         };
     }
 
-    // Tester code
-    public static void main(String[] args) {
-        Vector v = new Vector(5, 1.0);
-
-
-    }
 }
