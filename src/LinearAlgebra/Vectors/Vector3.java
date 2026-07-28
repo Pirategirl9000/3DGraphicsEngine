@@ -8,16 +8,16 @@ import java.util.Arrays;
 //TODO: Implement method for multiplication by matrix
 
 /**
- * Class for creating and managing Vectors
+ * Class for creating and managing 3D Vectors
  */
-public class Vector extends AbstractVector {
+public class Vector3 extends AbstractVector {
     /**
      * Creates a new Vector with a set size and initial values for all elements
      * @param size The size of the Vector
      * @param initialValue The value to initialize all elements to
      * @throws IllegalArgumentException If Vector has size less than or equal to 1
      */
-    public Vector(int size, Double initialValue) {
+    public Vector3(int size, Double initialValue) {
         if (size <= 1) throw new IllegalArgumentException("Vectors must have size greater than 1");
 
         this.elements = new Double[size];
@@ -32,7 +32,7 @@ public class Vector extends AbstractVector {
      * @param size The size of the Vector
      * @throws IllegalArgumentException If Vector has size less than or equal to 1
      */
-    public Vector(int size) {
+    public Vector3(int size) {
         this(size, 0.0);
     }
 
@@ -41,7 +41,7 @@ public class Vector extends AbstractVector {
      * @param elements The elements for the new Vector
      * @throws IllegalArgumentException If Vector has size less than or equal to 1
      */
-    public Vector(Double[] elements) {
+    public Vector3(Double[] elements) {
         if (elements.length <= 1) throw new IllegalArgumentException("Vectors must have size greater than 1");
         this.elements = elements;
     }
@@ -95,15 +95,5 @@ public class Vector extends AbstractVector {
     public void z(Double newValue) {
         requeryMag = true;
         this.elements[2] = newValue;
-    }
-
-
-
-
-    // Tester code
-    public static void main(String[] args) {
-        Vector v = new Vector(5, 1.0);
-
-
     }
 }
