@@ -110,7 +110,7 @@ public class Vector3 extends Vector {
     /**
      * Method for testing the class
      * @param args None
-     * For testing of superclass see {@link Vector#main(String[])}
+     * For testing of superclass and its methods see {@link Vector#main(String[])}
      */
     public static void main(String[] args) {
         // Test regular construction
