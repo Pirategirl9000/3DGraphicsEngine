@@ -25,8 +25,8 @@ public class Vector extends AbstractVector {
         this.elements = new Double[size];
         Arrays.fill(elements, initialValue);
 
-        this.length = size * initialValue;
-        requeryLength = false;
+        this.magnitude = size * initialValue;
+        requeryMag = false;
     }
 
     /**
@@ -77,7 +77,7 @@ public class Vector extends AbstractVector {
      * @param newValue The new value for the element
      */
     public void x(Double newValue) {
-        requeryLength = true;
+        requeryMag = true;
         this.elements[0] = newValue;
     }
 
@@ -86,7 +86,7 @@ public class Vector extends AbstractVector {
      * @param newValue The new value for the element
      */
     public void y(Double newValue) {
-        requeryLength = true;
+        requeryMag = true;
         this.elements[1] = newValue;
     }
 
@@ -95,7 +95,7 @@ public class Vector extends AbstractVector {
      * @param newValue The new value for the element
      */
     public void z(Double newValue) {
-        requeryLength = true;
+        requeryMag = true;
         this.elements[2] = newValue;
     }
 

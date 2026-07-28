@@ -19,12 +19,12 @@ public abstract class AbstractVector implements Collection<Double> {
     /**
      * Refers to the length of the Vector not the number of elements
      */
-    protected Double length;
+    protected Double magnitude;
 
     /**
      * Whether we need to requery the length on next getLength() call
      */
-    protected boolean requeryLength = true;
+    protected boolean requeryMag = true;
 
     /**
      * Gets the element at the given index
@@ -43,17 +43,16 @@ public abstract class AbstractVector implements Collection<Double> {
      * @throws IndexOutOfBoundsException if index exceeds the bounds of the Vector
      */
     public void alter(int index, Double newValue) {
-        requeryLength = true;
+        requeryMag = true;
         this.elements[index] = newValue;
     }
 
     /**
-     * Returns the length of the Vector<br>
-     * This refers to the length of the Vector not the size of the underlying array
-     * @return The length of the Vector
+     * Returns the magnitude of the Vector<br>
+     * @return The magnitude of the Vector
      */
-    public Double getLength() {
-        if (!requeryLength) return length;  // Use the cached length
+    public Double getMag() {
+        if (!requeryMag) return magnitude;  // Use the cached length
 
         double newLength = 0.0;
 
@@ -61,25 +60,26 @@ public abstract class AbstractVector implements Collection<Double> {
 
         newLength = Math.sqrt(newLength);
 
-        length = newLength;
-        requeryLength = false;
+        magnitude = newLength;
+        requeryMag = false;
 
-        return length;
+        return magnitude;
     }
 
     /**
      * Calculates the vectors normal
      */
     public void normalize() {
-        Double lengthInv = 1 / getLength();  // We calculate the inverse so normalization can use multiplication instead of repeated division
+        Double inverseMag = 1 / getMag();  // We calculate the inverse so normalization can use multiplication instead of repeated division
 
         Double[] newVectorArray = new Double[elements.length];
 
         for (int i = 0; i < elements.length; i++) {
-            newVectorArray[i] = lengthInv * elements[i];
+            newVectorArray[i] = inverseMag * elements[i];
         }
 
         this.elements = newVectorArray;
+        requeryMag = true;
     }
 
     /**
