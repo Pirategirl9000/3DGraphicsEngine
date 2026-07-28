@@ -1,50 +1,40 @@
 package LinearAlgebra.Vectors;
 
-
-import java.util.Arrays;
-
-//TODO: Synchronize methods
-//TODO: Implement method for cross product
-//TODO: Implement method for multiplication by matrix
-
 /**
- * Class for creating and managing 3D Vectors
+ * Vector for managing 3D objects
  */
-public class Vector3 extends AbstractVector {
+public class Vector3 extends Vector {
     /**
-     * Creates a new Vector with a set size and initial values for all elements
-     * @param size The size of the Vector
-     * @param initialValue The value to initialize all elements to
-     * @throws IllegalArgumentException If Vector has size less than or equal to 1
+     * Creates a new 3D vector with an initial value
+     * @param initialValue The initial value of the 3 elements
      */
-    public Vector3(int size, Double initialValue) {
-        if (size <= 1) throw new IllegalArgumentException("Vectors must have size greater than 1");
-
-        this.elements = new Double[size];
-        Arrays.fill(elements, initialValue);
-
-        this.magnitude = size * initialValue;
-        requeryMag = false;
+    public Vector3(Double initialValue) {
+        super(3, initialValue);
     }
 
     /**
-     * Creates a new Vector with a set size and 0.0 starting values
-     * @param size The size of the Vector
-     * @throws IllegalArgumentException If Vector has size less than or equal to 1
-     */
-    public Vector3(int size) {
-        this(size, 0.0);
-    }
-
-    /**
-     * Creates a new Vector from an array of Doubles
-     * @param elements The elements for the new Vector
-     * @throws IllegalArgumentException If Vector has size less than or equal to 1
+     * Creates a new 3D vector from an array of doubles
+     * @param elements The array of doubles for the vector to use
      */
     public Vector3(Double[] elements) {
-        if (elements.length <= 1) throw new IllegalArgumentException("Vectors must have size greater than 1");
-        this.elements = elements;
+        super(elements);
+
+        if (elements.length != 3) {
+            throw new IllegalArgumentException("Vector3 must contain only 3 elements");
+        }
     }
+
+    public Vector3(Double x, Double y, Double z) {
+        super(new Double[] {x,y,z});
+    }
+
+    /**
+     * Creates a new 3D vector with initial values of 0.0
+     */
+    public Vector3() {
+        super(3, 0.0);
+    }
+
 
     /**
      * Shorthand for retrieving the first element of the Vector
