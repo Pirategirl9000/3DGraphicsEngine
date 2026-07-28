@@ -11,9 +11,9 @@ public class Vector3 extends Vector {
      * @param elements The array of doubles for the vector to use
      */
     public Vector3(Double[] elements) {
-        this(elements[0], elements[1], elements[2]);
+        super(elements);
 
-        if (elements.length > 3) throw new InvalidVectorLengthException("Vector3 must have length of 3");
+        if (elements.length != 3) throw new InvalidVectorLengthException("Vector3 must have length of 3");
     }
 
     /**
@@ -27,6 +27,14 @@ public class Vector3 extends Vector {
     }
 
     /**
+     * Creates a new 3D vector with all elements having an initial value
+     * @param initialValue The initial value for the elements
+     */
+    public Vector3(Double initialValue) {
+        super(3, initialValue);
+    }
+
+    /**
      * Creates a new 3D vector with initial values of 0.0
      */
     public Vector3() {
@@ -34,15 +42,17 @@ public class Vector3 extends Vector {
     }
 
     /**
-     * Returns the cross product of this Vector3 and another
-     * @param v2 The other Vector3 to calculate the cross product of
+     * Calculates the cross product of this Vector3 with another
+     * @param v2 The other Vector to calculate the cross product of
      * @return resultant Vector3
      */
-    public Vector3 crossProduct(Vector3 v2) {
+    public Vector3 crossProduct(Vector v2) {
+        if (v2.size() != 3) throw new VectorLengthMismatch("Passed Vector does not have size 3");
+
         return new Vector3(
-                this.y() * v2.z() + this.z() * v2.y(),
-                this.z() * v2.x() + this.x() * v2.z(),
-                this.x() * v2.y() + this.y() * v2.x()
+                this.y() * v2.get(2) - this.z() * v2.get(1),
+                this.z() * v2.get(0) - this.x() * v2.get(2),
+                this.x() * v2.get(1) - this.y() * v2.get(0)
         );
     }
 
@@ -95,5 +105,56 @@ public class Vector3 extends Vector {
     public void z(Double newValue) {
         requeryMag = true;
         this.elements[2] = newValue;
+    }
+
+    /**
+     * Method for testing the class
+     * @param args None
+     * For testing of superclass see {@link Vector#main(String[])}
+     */
+    public static void main(String[] args) {
+        // Test regular construction
+        System.out.println("Testing valid vector constructions");
+        Vector3 v = new Vector3(new Double[] {1d, 2d, 3d});
+        Vector3 v2 = new Vector3(3d, 2d, 1d);
+        Vector3 v3 = new Vector3();
+        Vector3 v4 = new Vector3(4d);
+
+        // Test invalid construction
+        System.out.println("Testing invalid constructions");
+        try {
+            new Vector3(new Double[] {1d, 1d, 1d, 1d});
+        } catch (InvalidVectorLengthException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Test indexing via specialized methods
+        System.out.println("Testing indexing via Vector3 getter shortcuts");
+        System.out.println(v.x());
+        System.out.println(v.y());
+        System.out.println(v.z());
+
+        // Test alteration via specialized methods
+        System.out.println("Testing alteration via Vector3 setter shortcuts: Setting all 6's");
+        v.x(6d);
+        v.y(6d);
+        v.z(6d);
+
+        System.out.println(v);
+
+        // Test valid cross product
+        System.out.println("Testing cross product");
+        // v =  <6, 6, 6>
+        // v2 = <3, 2, 1>
+        System.out.println(v.crossProduct(v2));
+
+        // Testing invalid cross product
+        System.out.println("Testing invalid cross product");
+        Vector bigvec = new Vector(new Double[] {1d,1d,1d,1d});
+        try {
+            v.crossProduct(bigvec);
+        } catch (VectorLengthMismatch e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
