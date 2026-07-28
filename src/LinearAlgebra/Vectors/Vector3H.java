@@ -7,11 +7,21 @@ package LinearAlgebra.Vectors;
  */
 public class Vector3H extends Vector {
 
+    /**
+     * Creates a new homogenous vector with initial x, y, and z value and a seperate unique homogenous value
+     * @param initialValue The value for x, y, and z
+     * @param homogenousValue The value for the homogenous coordinate
+     */
     public Vector3H(Double initialValue, Double homogenousValue) {
         super(4, initialValue);
         this.elements[3] = homogenousValue;
     }
 
+    /**
+     * Creates a new homogenous 3D vector from an array of elements
+     * @param elements The elements for the Vector
+     * @throws InvalidVectorLengthException if array is not 4 elements long
+     */
     public Vector3H(Double[] elements) {
         super(elements);
 
@@ -20,6 +30,9 @@ public class Vector3H extends Vector {
         }
     }
 
+    /**
+     * Creates an empty homogenous 3D vector using default values
+     */
     public Vector3H() {
         super(4, 0.0);
         this.elements[3] = 1.0;

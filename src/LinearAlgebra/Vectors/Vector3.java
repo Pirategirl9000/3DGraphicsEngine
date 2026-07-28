@@ -16,6 +16,12 @@ public class Vector3 extends Vector {
         if (elements.length > 3) throw new InvalidVectorLengthException("Vector3 must have length of 3");
     }
 
+    /**
+     * Creates a new 3D vector with x, y, and z values
+     * @param x The value for the first element
+     * @param y The value for the second element
+     * @param z The value for the third element
+     */
     public Vector3(Double x, Double y, Double z) {
         super(new Double[] {x,y,z});
     }
