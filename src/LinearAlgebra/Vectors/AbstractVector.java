@@ -49,15 +49,17 @@ public abstract class AbstractVector implements Collection<Double> {
 
     /**
      * Returns the length of the Vector<br>
-     * This refers to the length of the Vector (all elements summed) not the size of the underlying array
+     * This refers to the length of the Vector not the size of the underlying array
      * @return The length of the Vector
      */
     public Double getLength() {
         if (!requeryLength) return length;  // Use the cached length
 
-        Double newLength = 0.0;
+        double newLength = 0.0;
 
-        for (Double d : elements) newLength += d;
+        for (Double d : elements) newLength += d * d;
+
+        newLength = Math.sqrt(newLength);
 
         length = newLength;
         requeryLength = false;
