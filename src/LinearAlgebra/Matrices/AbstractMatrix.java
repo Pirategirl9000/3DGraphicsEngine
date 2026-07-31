@@ -1,9 +1,13 @@
 package LinearAlgebra.Matrices;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.*;
+
 /**
  * Abstract class for implementing methods for handling a row major matrix
  */
-public class AbstractMatrix {
+public class AbstractMatrix implements Collection<Double> {
     /**
      * Stores all the elements of the matrix in row major form
      */
@@ -33,5 +37,151 @@ public class AbstractMatrix {
      */
     public Double[][] rows() {
         return elements;  // Already in row-major form
+    }
+
+    @Override
+    public String toString() {
+        int rowLength = elements[0].length;
+        int columnLength = elements.length;
+
+        StringBuilder sb = new StringBuilder(300);
+
+        sb.append("[");
+        for (int i = 0; i < rowLength; i++) {
+            for (int j = 0; j < columnLength; j++) {
+                sb.append(elements[j][i]);
+                if (j + 1 < columnLength) sb.append(", ");
+            }
+
+            if (i + 1 < rowLength) sb.append("\n");
+        }
+
+        sb.append("]");
+
+        return sb.toString();
+    }
+
+
+    //----------------------------------------------------- COLLECTION METHODS -----------------------------------------------------//
+
+    @Override
+    public int size() {
+        return elements[0].length * elements.length;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;  // Matrices will not be empty
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        if (!(o instanceof Double)) {
+            return false;
+        }
+
+        for (int i = 0; i < elements.length; i++) {
+            for (int j = 0; j < elements[0].length; j++) {
+                if (o.equals(elements[i][j])) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    @NotNull
+    @Override
+    public Object[] toArray() {
+        Object[] array = new Object[elements.length * elements[0].length];
+
+        for (int i = 0; i < elements.length; i++) {
+            for (int j = 0; j < elements[0].length; j++) {
+                array[j * elements[0].length + i] = elements[j][i];
+            }
+        }
+
+        return array;
+    }
+
+    @NotNull
+    @Override
+    public <T> T[] toArray(@NotNull T[] a) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean add(Double aDouble) {
+        throw new UnsupportedOperationException("Cannot add to a matrix");
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        throw new UnsupportedOperationException("Cannot remove from a matrix");
+    }
+
+    @Override
+    public boolean containsAll(@NotNull Collection<?> c) {
+        // Strong contender for the stupidest code I've ever written
+        // 7/31/2026 1:49AM: it wasn't
+        List<Object> list = new ArrayList<>(List.copyOf(c));  // Pretty sure this doesn't work if the Collection doesn't have an Iterator
+
+        for (int i = 0; i < elements.length; i++) {
+            for (int j = 0; j < elements[0].length; j++) {
+                list.remove(elements[i][j]);
+            }
+        }
+
+        return list.isEmpty();
+    }
+
+    @Override
+    public boolean addAll(@NotNull Collection<? extends Double> c) {
+        throw new UnsupportedOperationException("Cannot add to a matrix");
+    }
+
+    @Override
+    public boolean removeAll(@NotNull Collection<?> c) {
+        throw new UnsupportedOperationException("Cannot remove from a matrix");
+    }
+
+    @Override
+    public boolean retainAll(@NotNull Collection<?> c) {
+        throw new UnsupportedOperationException("Cannot remove from a matrix");
+    }
+
+    @Override
+    public void clear() {
+        throw new UnsupportedOperationException("Cannot remove from a matrix");
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Double> iterator() {
+        return new Iterator<Double>() {
+            private int column = 0;
+            private int row = 0;
+
+            @Override
+            public boolean hasNext() {
+                if (column == elements[0].length) {
+                    // We've done the whole row now we move to the next
+                    row++;
+                    column = 0;
+
+                    return row != elements.length;
+                }
+
+                return true;
+            }
+
+            @Override
+            public Double next() {
+                if (!hasNext()) throw new NoSuchElementException("No more elements");
+
+                return elements[row][column++];
+            }
+        };
     }
 }
