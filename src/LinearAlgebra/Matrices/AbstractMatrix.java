@@ -10,7 +10,8 @@ public class AbstractMatrix {
     protected Double[][] elements;
 
     /**
-     * Returns the matrix in column major form
+     * Returns the matrix in column major form<br>
+     * Note that this does not change how things are indexed internally, it simply rearranges the underlying array so that the rows are the columns and vice versa
      * @return Double[][] containing all the elements of the matrix in column major form
      */
     public Double[][] columns() {
