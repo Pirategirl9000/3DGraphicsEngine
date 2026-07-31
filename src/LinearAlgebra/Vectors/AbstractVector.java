@@ -120,7 +120,7 @@ public abstract class AbstractVector implements Collection<Double> {
     public String toString() {
         int length = elements.length;
 
-        StringBuilder sb = new StringBuilder(length * 3);  // Allocating exactly how much space we will need
+        StringBuilder sb = new StringBuilder(500);
 
         sb.append("<");
         for (int i = 0; i < length; i++) {
