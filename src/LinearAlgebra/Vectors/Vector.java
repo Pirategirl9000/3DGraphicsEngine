@@ -1,9 +1,11 @@
 package LinearAlgebra.Vectors;
 
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 
 //TODO: Implement method for multiplication by matrix
 
