@@ -1,7 +1,9 @@
 package LinearAlgebra.Vectors;
 
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 //TODO: Implement method for multiplication by matrix
 
@@ -42,6 +44,25 @@ public class Vector extends AbstractVector {
     }
 
     /**
+     * Creates a new Vector from a Collection of Doubles
+     * @param elements The elements for the new vector
+     */
+    public Vector(Collection<Double> elements) {
+        if (elements.size() <= 1) throw new InvalidVectorLengthException("Vectors must have size greater than 1");
+
+        this.elements = new Double[elements.size()];
+
+        Iterator<Double> it = elements.iterator();
+
+        int i = 0;
+
+        while (it.hasNext()) {
+            this.elements[i] = it.next();
+            i++;
+        }
+    }
+
+    /**
      * Gets the normal and returns it
      * @see #normalize()
      * @return Normalized vector
@@ -73,12 +94,14 @@ public class Vector extends AbstractVector {
         Vector v = new Vector(3, 3.0);
         Vector v2 = new Vector(4);
         Vector v3 = new Vector(new Double[] {1d, 2d, 3d, 4d});
+        Vector v4 = new Vector(List.of(1d, 2d, 3d));
 
         // Testing toString() method
         System.out.println("Testing toString method");
         System.out.println(v);
         System.out.println(v2);
         System.out.println(v3);
+        System.out.println(v4);
 
         // Testing grabbing by index
         System.out.println("Testing get by index method");
