@@ -1,5 +1,7 @@
 package LinearAlgebra.Matrices;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -21,15 +23,15 @@ public class Matrix33 extends Matrix {
      * @param elements The values for the matrix
      * @throws InvalidMatrixLengthException if values is not of length 9
      */
-    public Matrix33(Double... elements) {
+    public Matrix33(@NotNull Double... elements) {
             super(getAsNewDoubleDouble(elements));
     }
 
-    public Matrix33(Double[]... elements) {
+    public Matrix33(@NotNull Double[]... elements) {
         super(getAsNewDoubleDouble(elements));
     }
 
-    public Matrix33(Collection<Double> elements) {
+    public Matrix33(@NotNull Collection<Double> elements) {
         super(getAsNewDoubleDouble(elements));
     }
 
@@ -45,7 +47,7 @@ public class Matrix33 extends Matrix {
      * @param values the varargs to convert
      * @return A Double[][] containing those elements
      */
-    private static Double[][] getAsNewDoubleDouble(Double... values) {
+    private static Double[][] getAsNewDoubleDouble(@NotNull Double... values) {
         if (values.length != 9) throw new InvalidMatrixLengthException("Matrix33 must have 9 elements");  // This is the whole point of this method
 
         return new Double[][] {
@@ -60,7 +62,7 @@ public class Matrix33 extends Matrix {
      * @param elements the Colletion to convert
      * @return A Double[][] containing those elements
      */
-    private static Double[][] getAsNewDoubleDouble(Collection<Double> elements) {
+    private static Double[][] getAsNewDoubleDouble(@NotNull Collection<Double> elements) {
         if (elements.size() != 9) throw new InvalidMatrixLengthException("Matrix33 must have 9 elements");
 
         Double[][] realElements =  new Double[3][3];
@@ -82,7 +84,7 @@ public class Matrix33 extends Matrix {
      * @param elements the elements to convert
      * @return A Double[][] containing those elements
      */
-    private static Double[][] getAsNewDoubleDouble(Double[]... elements) {
+    private static Double[][] getAsNewDoubleDouble(@NotNull Double[]... elements) {
         if (elements.length != 3 || elements[0].length != 3) throw new InvalidMatrixLengthException("Matrix33 must have 9 elements");
 
         return new Double[][] {

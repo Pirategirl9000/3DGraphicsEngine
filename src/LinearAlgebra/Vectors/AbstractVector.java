@@ -90,7 +90,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * @return The dot product of the two vectors
      * @throws VectorLengthMismatch if the vectors don't have matching length
      */
-    public static Double dotProduct(AbstractVector v1, AbstractVector v2) {
+    public static Double dotProduct(@NotNull AbstractVector v1, @NotNull AbstractVector v2) {
         if (v1.size() != v2.size()) throw new VectorLengthMismatch("Vectors must have matching length to calculate dot product");
 
         double dp = 0.0;
@@ -108,7 +108,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * @return The dot product of the two vectors
      * @throws VectorLengthMismatch if the vectors don't have matching length
      */
-    public Double dotProduct(AbstractVector v2) {
+    public Double dotProduct(@NotNull AbstractVector v2) {
         return dotProduct(this, v2);
     }
 

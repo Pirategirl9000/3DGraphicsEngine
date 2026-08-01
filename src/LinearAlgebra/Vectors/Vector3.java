@@ -2,6 +2,8 @@ package LinearAlgebra.Vectors;
 
 //TODO: Add shortcuts for performing linear transformations on these vectors
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Vector for managing 3D objects
  */
@@ -10,7 +12,7 @@ public class Vector3 extends Vector {
      * Creates a new 3D vector from an array of doubles
      * @param elements The array of doubles for the vector to use
      */
-    public Vector3(Double[] elements) {
+    public Vector3(@NotNull Double[] elements) {
         super(elements);
 
         if (elements.length != 3) throw new InvalidVectorLengthException("Vector3 must have length of 3");
@@ -46,7 +48,7 @@ public class Vector3 extends Vector {
      * @param v2 The other Vector to calculate the cross product of
      * @return resultant Vector3
      */
-    public Vector3 crossProduct(Vector v2) {
+    public Vector3 crossProduct(@NotNull Vector v2) {
         if (v2.size() != 3) throw new VectorLengthMismatch("Passed Vector does not have size 3");
 
         return new Vector3(

@@ -1,6 +1,8 @@
 package LinearAlgebra.Vectors;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -40,7 +42,7 @@ public class Vector extends AbstractVector {
      * @param elements The elements for the new Vector
      * @throws InvalidVectorLengthException If Vector has size less than or equal to 1
      */
-    public Vector(Double[] elements) {
+    public Vector(@NotNull Double[] elements) {
         if (elements.length <= 1) throw new InvalidVectorLengthException("Vectors must have size greater than 1");
         this.elements = elements;
     }
@@ -49,7 +51,7 @@ public class Vector extends AbstractVector {
      * Creates a new Vector from a Collection of Doubles
      * @param elements The elements for the new vector
      */
-    public Vector(Collection<Double> elements) {
+    public Vector(@NotNull Collection<Double> elements) {
         // The polymorphism on display here feels like pure euphoria
         if (elements.size() <= 1) throw new InvalidVectorLengthException("Vectors must have size greater than 1");
 

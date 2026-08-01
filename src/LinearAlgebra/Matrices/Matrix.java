@@ -2,6 +2,7 @@ package LinearAlgebra.Matrices;
 
 import LinearAlgebra.Vectors.AbstractVector;
 import LinearAlgebra.Vectors.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;  // Used for testing
@@ -14,7 +15,7 @@ public class Matrix extends AbstractMatrix {
      * Creates a Matrix from a multidimensional array of Doubles
      * @param elements The elements of the matrix as a nested Double array
      */
-    public Matrix(Double[]... elements) {
+    public Matrix(@NotNull Double[]... elements) {
         if (elements.length == 0 || elements[0].length == 0) {
             throw new InvalidMatrixLengthException("Cannot create matrix with either no rows or no columns");
         }
@@ -62,7 +63,7 @@ public class Matrix extends AbstractMatrix {
      * @param m2 The second matrix to multiply this one by
      * @return new Matrix that is the product
      */
-    public AbstractMatrix multiply(AbstractMatrix m2) {
+    public AbstractMatrix multiply(@NotNull AbstractMatrix m2) {
         if (this.columns() != m2.rows()) throw new MatrixRowColumnMismatch("Invalid rows and columns to perform multiplication");
 
         Double[][] newMatrix = new Double[this.rows()][m2.columns()];
@@ -92,7 +93,7 @@ public class Matrix extends AbstractMatrix {
      * @param vec The Vector to multiply this matrix by
      * @return new Matrix that is the product
      */
-    public AbstractMatrix multiply(AbstractVector vec) {
+    public AbstractMatrix multiply(@NotNull AbstractVector vec) {
         Double[][] vecMat = new Double[vec.size()][1];
 
         for (int i = 0; i < vec.size(); i++) {

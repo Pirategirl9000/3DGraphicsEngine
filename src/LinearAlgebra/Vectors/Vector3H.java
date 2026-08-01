@@ -2,6 +2,8 @@ package LinearAlgebra.Vectors;
 
 //TODO: Add methods for linear transformations
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * A class for managing 3D homogenous vectors
  */
@@ -22,7 +24,7 @@ public class Vector3H extends Vector {
      * @param elements The elements for the Vector
      * @throws InvalidVectorLengthException if array is not 4 elements long
      */
-    public Vector3H(Double[] elements) {
+    public Vector3H(@NotNull Double[] elements) {
         super(elements);
 
         if (elements.length != 4) {
