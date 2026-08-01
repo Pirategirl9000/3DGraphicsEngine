@@ -6,6 +6,9 @@ import LinearAlgebra.Vectors.Vector;
 import java.util.Arrays;
 import java.util.List;  // Used for testing
 
+/**
+ * Class for creating basic matrices
+ */
 public class Matrix extends AbstractMatrix {
     /**
      * Creates a Matrix from a multidimensional array of Doubles
