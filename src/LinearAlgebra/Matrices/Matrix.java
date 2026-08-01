@@ -99,6 +99,10 @@ public class Matrix extends AbstractMatrix {
         return this.multiply(new Matrix(vecMat));
     }
 
+    /**
+     * Testing method for the Matrix and AbstractMatrix classes
+     * @param args None
+     */
     public static void main(String[] args) {
         // Create a valid matrix
         System.out.println("Creating valid matrices");
