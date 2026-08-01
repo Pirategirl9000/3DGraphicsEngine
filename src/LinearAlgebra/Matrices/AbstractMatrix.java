@@ -2,7 +2,12 @@ package LinearAlgebra.Matrices;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import LinearAlgebra.Vectors.Vector;
 
 /**
  * Abstract class for implementing methods for handling a row major matrix
@@ -27,6 +32,17 @@ public abstract class AbstractMatrix implements Collection<Double> {
      */
     public int rows() {
         return elements.length;
+    }
+
+    /**
+     * Tries to convert the matrix to a vector
+     * @return Vector with elements of the matrix
+     * @throws MatrixRowColumnMismatch if the matrix doesn't have 1 row, 1 column matrices are not supported for conversions
+     */
+    public Vector toVector() {
+        if (this.rows() != 1) throw new MatrixRowColumnMismatch("Rows must be 1 to convert a matrix to a vector");
+
+        return new Vector(this.elements[0]);
     }
 
     @Override
