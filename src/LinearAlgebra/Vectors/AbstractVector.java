@@ -67,7 +67,7 @@ public abstract class AbstractVector implements Collection<Double> {
     }
 
     /**
-     * Calculates the vectors normal and set's itself to that
+     * Normalizes this vectors
      * @throws ArithmeticException if it's a 0 length vector due to divide by zero error
      */
     public void normalize() {
