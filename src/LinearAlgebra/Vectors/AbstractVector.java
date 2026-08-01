@@ -1,5 +1,6 @@
 package LinearAlgebra.Vectors;
 
+import LinearAlgebra.Matrices.Matrix;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -109,6 +110,14 @@ public abstract class AbstractVector implements Collection<Double> {
      */
     public Double dotProduct(AbstractVector v2) {
         return dotProduct(this, v2);
+    }
+
+    /**
+     * Converts the vector to a matrix of 1 x n dimensions
+     * @return 1 x n matrix containing this vector's elements
+     */
+    public Matrix toMatrix() {
+        return new Matrix(new Double[][] {this.elements});
     }
 
     /**

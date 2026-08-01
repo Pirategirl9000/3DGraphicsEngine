@@ -143,5 +143,9 @@ public class Vector extends AbstractVector {
             System.out.println(e.getMessage());
         }
 
+        // Try converting the vector to a matrix
+        System.out.println("Getting matrix from vector");
+        System.out.println(v.toMatrix());
+
     }
 }
