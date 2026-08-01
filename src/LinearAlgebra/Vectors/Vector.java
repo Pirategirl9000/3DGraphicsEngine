@@ -117,6 +117,7 @@ public class Vector extends AbstractVector {
         System.out.println("Testing out of bounds error");
         try {
             v.get(5);
+            System.out.println("No except");
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
         }
@@ -165,6 +166,7 @@ public class Vector extends AbstractVector {
         System.out.println("Testing invalid dot product");
         try {
             Vector.dotProduct(v, v3);
+            System.out.println("No except");
         } catch (VectorLengthMismatch e) {
             System.out.println(e.getMessage());
         }

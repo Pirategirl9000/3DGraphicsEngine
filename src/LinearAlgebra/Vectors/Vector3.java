@@ -124,6 +124,7 @@ public class Vector3 extends Vector {
         System.out.println("Testing invalid constructions");
         try {
             new Vector3(new Double[] {1d, 1d, 1d, 1d});
+            System.out.println("No except");
         } catch (InvalidVectorLengthException e) {
             System.out.println(e.getMessage());
         }
