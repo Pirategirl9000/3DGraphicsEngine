@@ -1,6 +1,7 @@
 package LinearAlgebra.Matrices;
 
 import LinearAlgebra.Vectors.AbstractVector;
+import LinearAlgebra.Vectors.Vector;
 
 import java.util.Arrays;
 import java.util.List;  // Used for testing
@@ -83,18 +84,20 @@ public class Matrix extends AbstractMatrix {
     }
 
     /**
-     * Multiplies this matrix by the vector and returns the result
+     * Multiplies this matrix by the vector and returns the result<br>
+     * Note that this is not the same as multiplying a vector by a matrix
      * @param vec The Vector to multiply this matrix by
      * @return new Matrix that is the product
      */
-    public Matrix multiply(AbstractVector vec) {
-        return null;
+    public AbstractMatrix multiply(AbstractVector vec) {
+        Double[][] vecMat = new Double[vec.size()][1];
+
+        for (int i = 0; i < vec.size(); i++) {
+            vecMat[i][0] = vec.get(i);
+        }
+
+        return this.multiply(new Matrix(vecMat));
     }
-
-
-
-
-    //TODO: Add multiply method for vectors
 
     public static void main(String[] args) {
         // Create a valid matrix
@@ -160,7 +163,7 @@ public class Matrix extends AbstractMatrix {
         System.out.println(matrix3);
 
         // Test multiplication
-        System.out.println("Test Matrix Multiplication");
+        System.out.println("Test Matrix and Matrix Multiplication");
         Matrix m1 = new Matrix(new Double[][] {
                 {1d, 2d, 3d},
                 {4d, 5d, 6d}
@@ -174,5 +177,36 @@ public class Matrix extends AbstractMatrix {
 
 
         System.out.println(m1.multiply(m2));
+
+        // Test Matrix * Vector multiplication
+        System.out.println("Testing Matrix and Vector multiplication");
+        Vector v = new Vector(new Double[] {
+                1d, 2d, 3d
+        });
+
+        Matrix m3 = new Matrix(new Double[][] {
+                {1d, 2d, 3d},
+                {4d, 5d, 6d}
+        });
+
+        System.out.println(m3.multiply(v));
+
+        // Test invalid matrix multiplication
+
+        // Matrix * Matrix
+        System.out.println("Testing invalid matrix multiplication with matrix");
+        try {
+            m3.multiply(m1);
+        } catch (MatrixRowColumnMismatch e){
+            System.out.println(e.getMessage());
+        }
+
+        // Matrix * Vector
+        System.out.println("Testing invalid matrix multiplication with vector");
+        try {
+            m2.multiply(v);
+        } catch (MatrixRowColumnMismatch e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
