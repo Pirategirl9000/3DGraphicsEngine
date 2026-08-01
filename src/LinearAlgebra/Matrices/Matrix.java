@@ -174,18 +174,5 @@ public class Matrix extends AbstractMatrix {
 
 
         System.out.println(m1.multiply(m2));
-
-
-        Matrix t1 = new Matrix(1000, 1000, 1d);
-        Matrix t2 = new Matrix(1000, 1000, 1d);
-
-        long start = System.nanoTime();
-
-        // Time Test for multiplication
-        for (int i = 0; i < 10; i++) {
-            t1.multiply(t2);
-        }
-
-        System.out.println((System.nanoTime() - start) / 1_000_000 / 1000);
     }
 }
