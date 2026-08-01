@@ -4,7 +4,15 @@ import java.util.Arrays;
 import java.util.List;  // Used for testing
 
 public class Matrix extends AbstractMatrix {
+    /**
+     * Creates a Matrix from a multidimensional array of Doubles
+     * @param elements The elements of the matrix as a nested Double array
+     */
     public Matrix(Double[][] elements) {
+        if (elements.length == 0 || elements[0].length == 0) {
+            throw new InvalidMatrixLengthException("Cannot create matrix with either no rows or no columns");
+        }
+
         int rowSize = elements[0].length;
 
         for (int i = 1; i < elements.length; i++) {
@@ -16,17 +24,49 @@ public class Matrix extends AbstractMatrix {
         this.elements = elements;
     }
 
-    //TODO: Add more constructors
-    //TODO: Add more methods
+    /**
+     * Creates a new matrix with a set number of rows and columns all having an initial value
+     * @param rows The number of rows
+     * @param columns The number of columns
+     * @param initialValue The initial value for all items
+     */
+    public Matrix(int rows, int columns, Double initialValue) {
+        if (rows < 0 || columns < 0) {
+             throw new InvalidMatrixLengthException("Columns and rows must be greater than or equal to one");
+        }
+
+        this.elements = new Double[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            Arrays.fill(elements[i], initialValue);
+        }
+    }
+
+    /**
+     * Creates a new matrix with a set number of rows and columns all initialized to 0d
+     * @param rows The number of rows
+     * @param columns The number of columns
+     */
+    public Matrix(int rows, int columns) {
+        this(rows, columns, 0d);
+    }
+
+
+
+
+    //TODO: Add multiply method for vectors and matrices
 
     public static void main(String[] args) {
         // Create a valid matrix
-        System.out.println("Creating a valid matrix");
+        System.out.println("Creating valid matrices");
         Matrix matrix = new Matrix(new Double[][] {
                 {1d,2d,3d},
                 {4d,5d,6d},
                 {7d,8d,9d}
         });
+
+        Matrix matrix2 = new Matrix(5, 5);
+        Matrix matrix3 = new Matrix(5, 4, 1d);
 
         // Test matrix iterator
         System.out.println("Testing iteration of Matrix");
@@ -76,6 +116,8 @@ public class Matrix extends AbstractMatrix {
 
         System.out.println("Testing toString() method");
         System.out.println(matrix);
+        System.out.println(matrix2);
+        System.out.println(matrix3);
 
     }
 }
