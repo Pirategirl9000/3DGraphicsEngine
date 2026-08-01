@@ -58,7 +58,7 @@ public class Matrix extends AbstractMatrix {
      * @param m2 The second matrix to multiply this one by
      * @return new Matrix that is the product
      */
-    public Matrix multiply(AbstractMatrix m2) {
+    public AbstractMatrix multiply(AbstractMatrix m2) {
         if (this.columns() != m2.rows()) throw new MatrixRowColumnMismatch("Invalid rows and columns to perform multiplication");
 
         Double[][] newMatrix = new Double[this.rows()][m2.columns()];

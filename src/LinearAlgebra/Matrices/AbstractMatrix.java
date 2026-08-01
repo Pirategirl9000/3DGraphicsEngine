@@ -87,6 +87,9 @@ public abstract class AbstractMatrix implements Collection<Double> {
         return sb.toString();
     }
 
+    public abstract AbstractMatrix multiply(AbstractMatrix m2);
+
+
 
     //----------------------------------------------------- COLLECTION METHODS -----------------------------------------------------//
 
