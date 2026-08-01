@@ -14,29 +14,19 @@ public class AbstractMatrix implements Collection<Double> {
     protected Double[][] elements;
 
     /**
-     * Returns the matrix in column major form<br>
-     * Note that this does not change how things are indexed internally, it simply rearranges the underlying array so that the rows are the columns and vice versa
-     * @return Double[][] containing all the elements of the matrix in column major form
+     * Returns the number of columns
+     * @return The number of columns in the matrix
      */
-    public Double[][] columns() {
-        // We must convert the row major elements to be column major
-        Double[][] columns = new Double[elements[0].length][elements.length];
-
-        for (int i = 0; i < elements[0].length; i++) {
-            for (int j = 0; j < elements.length; j++) {
-                columns[i][j] = elements[j][i];
-            }
-        }
-
-        return columns;
+    public int columns() {
+        return elements[0].length;
     }
 
     /**
-     * Returns the matrix in row major form
-     * @return Double[][] containing all the elements of the matrix in row major form
+     * Returns the number of rows
+     * @return The number of rows in the matrix
      */
-    public Double[][] rows() {
-        return elements;  // Already in row-major form
+    public int rows() {
+        return elements.length;
     }
 
     @Override
