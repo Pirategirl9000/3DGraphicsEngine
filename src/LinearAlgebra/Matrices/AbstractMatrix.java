@@ -31,14 +31,14 @@ public class AbstractMatrix implements Collection<Double> {
 
     @Override
     public String toString() {
-        int rowLength = elements[0].length;
-        int columnLength = elements.length;
+        int columnLength = elements[0].length;
+        int rowLength = elements.length;
 
         StringBuilder sb = new StringBuilder(300);
 
         sb.append("[");
-        for (int i = 0; i < columnLength; i++) {
-            for (int j = 0; j < rowLength; j++) {
+        for (int i = 0; i < rowLength; i++) {
+            for (int j = 0; j < columnLength; j++) {
                 sb.append(elements[i][j]);
                 if (j + 1 < columnLength) sb.append(", ");
             }
