@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Abstract class for implementing methods for handling a row major matrix
  */
-public class AbstractMatrix implements Collection<Double> {
+public abstract class AbstractMatrix implements Collection<Double> {
     /**
      * Stores all the elements of the matrix in row major form
      */
