@@ -14,7 +14,7 @@ public class Matrix extends AbstractMatrix {
      * Creates a Matrix from a multidimensional array of Doubles
      * @param elements The elements of the matrix as a nested Double array
      */
-    public Matrix(Double[][] elements) {
+    public Matrix(Double[]... elements) {
         if (elements.length == 0 || elements[0].length == 0) {
             throw new InvalidMatrixLengthException("Cannot create matrix with either no rows or no columns");
         }
@@ -132,6 +132,7 @@ public class Matrix extends AbstractMatrix {
                     {2d},
                     {3d}
             });
+            System.out.println("No except");
         } catch (InvalidMatrixLengthException e) {
             System.out.println(e.getMessage());
         }
@@ -204,6 +205,7 @@ public class Matrix extends AbstractMatrix {
         System.out.println("Testing invalid matrix multiplication with matrix");
         try {
             m3.multiply(m1);
+            System.out.println("No except");
         } catch (MatrixRowColumnMismatch e){
             System.out.println(e.getMessage());
         }
@@ -212,6 +214,7 @@ public class Matrix extends AbstractMatrix {
         System.out.println("Testing invalid matrix multiplication with vector");
         try {
             m2.multiply(v);
+            System.out.println("No except");
         } catch (MatrixRowColumnMismatch e) {
             System.out.println(e.getMessage());
         }
