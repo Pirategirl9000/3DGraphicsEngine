@@ -37,9 +37,9 @@ public class AbstractMatrix implements Collection<Double> {
         StringBuilder sb = new StringBuilder(300);
 
         sb.append("[");
-        for (int i = 0; i < rowLength; i++) {
-            for (int j = 0; j < columnLength; j++) {
-                sb.append(elements[j][i]);
+        for (int i = 0; i < columnLength; i++) {
+            for (int j = 0; j < rowLength; j++) {
+                sb.append(elements[i][j]);
                 if (j + 1 < columnLength) sb.append(", ");
             }
 
