@@ -94,7 +94,7 @@ public class Matrix extends AbstractMatrix {
 
 
 
-    //TODO: Add multiply method for vectors and matrices
+    //TODO: Add multiply method for vectors
 
     public static void main(String[] args) {
         // Create a valid matrix
