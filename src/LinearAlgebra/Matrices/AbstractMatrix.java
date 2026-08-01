@@ -35,6 +35,26 @@ public abstract class AbstractMatrix implements Collection<Double> {
     }
 
     /**
+     * Gets the value at the specified position
+     * @param row row of the element
+     * @param column column of the element
+     * @return the element at that position
+     */
+    public Double get(int row, int column) {
+        return this.elements[row][column];
+    }
+
+    /**
+     * Changes the value at a specfied position
+     * @param row row of the element
+     * @param column column of the element
+     * @param value The new value for the element
+     */
+    public void alter(int row, int column, Double value) {
+        this.elements[row][column] = value;
+    }
+
+    /**
      * Tries to convert the matrix to a vector
      * @return Vector with elements of the matrix
      * @throws MatrixRowColumnMismatch if the matrix doesn't have 1 row, 1 column matrices are not supported for conversions
