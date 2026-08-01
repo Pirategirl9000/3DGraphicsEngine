@@ -13,10 +13,10 @@ public class Matrix extends AbstractMatrix {
             throw new InvalidMatrixLengthException("Cannot create matrix with either no rows or no columns");
         }
 
-        int rowSize = elements[0].length;
+        int columnSize = elements[0].length;
 
         for (int i = 1; i < elements.length; i++) {
-            if (rowSize != elements[i].length) {
+            if (columnSize != elements[i].length) {
                 throw new InvalidMatrixLengthException("Matrix does not have consistent row length");
             }
         }
