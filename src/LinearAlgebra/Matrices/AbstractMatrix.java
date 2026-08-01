@@ -40,10 +40,10 @@ public abstract class AbstractMatrix implements Collection<Double> {
         for (int i = 0; i < rowLength; i++) {
             for (int j = 0; j < columnLength; j++) {
                 sb.append(elements[i][j]);
-                if (j + 1 < columnLength) sb.append(", ");
+                if (j + 1 < columnLength) sb.append(" ");
             }
 
-            if (i + 1 < rowLength) sb.append("\n");
+            if (i + 1 < rowLength) sb.append("\n ");
         }
 
         sb.append("]");
