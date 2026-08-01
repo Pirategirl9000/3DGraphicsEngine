@@ -1,5 +1,7 @@
 package LinearAlgebra.Matrices;
 
+import LinearAlgebra.Vectors.AbstractVector;
+
 import java.util.Arrays;
 import java.util.List;  // Used for testing
 
@@ -49,6 +51,44 @@ public class Matrix extends AbstractMatrix {
      */
     public Matrix(int rows, int columns) {
         this(rows, columns, 0d);
+    }
+
+    /**
+     * Multiplies this matrix by another and returns the result
+     * @param m2 The second matrix to multiply this one by
+     * @return new Matrix that is the product
+     */
+    public Matrix multiply(AbstractMatrix m2) {
+        if (this.columns() != m2.rows()) throw new MatrixRowColumnMismatch("Invalid rows and columns to perform multiplication");
+
+        Double[][] newMatrix = new Double[this.rows()][m2.columns()];
+
+        // Apparently this is the schoolbook approach to matrix multiplication. There are faster approaches but nothing of O(n^2)
+        // The solution here is to do parallel algorithms, this is why GPU's exist
+        // Also I'd like to note I first tried this with my only source being an article on how to multiply a matrix, I came up with the algorithm myself
+        // In the future I might come back to this to make it more efficient since it may just kill performance
+        for (int mRow = 0; mRow < this.rows(); mRow++) {
+            for (int m2Col = 0; m2Col < m2.columns(); m2Col++) {
+                double newValue = 0d;
+
+                for (int element = 0; element < this.columns(); element++) {
+                    newValue += this.get(mRow, element) * m2.get(element, m2Col);
+                }
+                newMatrix[mRow][m2Col] = newValue;
+            }
+        }
+
+        return new Matrix(newMatrix);
+
+    }
+
+    /**
+     * Multiplies this matrix by the vector and returns the result
+     * @param vec The Vector to multiply this matrix by
+     * @return new Matrix that is the product
+     */
+    public Matrix multiply(AbstractVector vec) {
+        return null;
     }
 
 
@@ -119,5 +159,33 @@ public class Matrix extends AbstractMatrix {
         System.out.println(matrix2);
         System.out.println(matrix3);
 
+        // Test multiplication
+        System.out.println("Test Matrix Multiplication");
+        Matrix m1 = new Matrix(new Double[][] {
+                {1d, 2d, 3d},
+                {4d, 5d, 6d}
+        });
+
+        Matrix m2 = new Matrix(new Double[][] {
+                {1d, 2d},
+                {3d, 4d},
+                {5d, 6d}
+        });
+
+
+        System.out.println(m1.multiply(m2));
+
+
+        Matrix t1 = new Matrix(1000, 1000, 1d);
+        Matrix t2 = new Matrix(1000, 1000, 1d);
+
+        long start = System.nanoTime();
+
+        // Time Test for multiplication
+        for (int i = 0; i < 10; i++) {
+            t1.multiply(t2);
+        }
+
+        System.out.println((System.nanoTime() - start) / 1_000_000 / 1000);
     }
 }
