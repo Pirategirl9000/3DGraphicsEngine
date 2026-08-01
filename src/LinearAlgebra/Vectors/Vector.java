@@ -50,6 +50,7 @@ public class Vector extends AbstractVector {
      * @param elements The elements for the new vector
      */
     public Vector(Collection<Double> elements) {
+        // The polymorphism on display here feels like pure euphoria
         if (elements.size() <= 1) throw new InvalidVectorLengthException("Vectors must have size greater than 1");
 
         this.elements = new Double[elements.size()];
