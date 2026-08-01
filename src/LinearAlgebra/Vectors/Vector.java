@@ -66,7 +66,7 @@ public class Vector extends AbstractVector {
     }
 
     /**
-     * Gets the normal and returns it
+     * Gets the normalized vector and returns it
      * @see #normalize()
      * @return Normalized vector
      * @throws ArithmeticException if it's a 0 magnitude vector due to divide by zero error
