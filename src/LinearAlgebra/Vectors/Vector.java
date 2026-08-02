@@ -42,7 +42,7 @@ public class Vector extends AbstractVector {
      * @param elements The elements for the new Vector
      * @throws InvalidVectorLengthException If Vector has size less than or equal to 1
      */
-    public Vector(@NotNull Double[] elements) {
+    public Vector(@NotNull Double... elements) {
         if (elements.length <= 1) throw new InvalidVectorLengthException("Vectors must have size greater than 1");
         this.elements = elements;
     }
@@ -188,6 +188,13 @@ public class Vector extends AbstractVector {
         // Try converting the vector to a matrix
         System.out.println("Getting matrix from vector");
         System.out.println(v.toMatrix());
+
+        // Test vector addition
+        System.out.println("Testing vector addition");
+        Vector va = new Vector(1d, 2d, 3d);
+        va.add(new Vector(1d ,2d, 3d));
+
+        System.out.println(va);
 
     }
 }
