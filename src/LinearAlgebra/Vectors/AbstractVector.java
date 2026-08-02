@@ -3,6 +3,7 @@ package LinearAlgebra.Vectors;
 import LinearAlgebra.Matrices.Matrix;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -81,6 +82,26 @@ public abstract class AbstractVector implements Collection<Double> {
 
         this.elements = newVectorArray;
         requeryMag = true;
+    }
+
+    /**
+     * Adds the vector onto this one
+     * @param v2 The other vector to add onto this one
+     */
+    public void add(AbstractVector v2) {
+        if (v2.size() != this.size()) throw new VectorLengthMismatch("Vectors must have equal length to add");
+
+        for (int i = 0; i < this.size(); i++) {
+            this.elements[i] += v2.get(i);
+        }
+    }
+
+    /**
+     * Scales this vector by the given scalar
+     * @param scalar The value to scale by
+     */
+    public void scale(Double scalar) {
+        this.elements = Arrays.stream(this.elements).map((n) -> n * scalar).toArray(Double[]::new);
     }
 
     /**

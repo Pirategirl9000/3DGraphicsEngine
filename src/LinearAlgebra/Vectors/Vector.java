@@ -68,18 +68,6 @@ public class Vector extends AbstractVector {
     }
 
     /**
-     * Adds the vector onto this one
-     * @param v2 The other vector to add onto this one
-     */
-    public void add(AbstractVector v2) {
-        if (v2.size() != this.size()) throw new VectorLengthMismatch("Vectors must have equal length to add");
-
-        for (int i = 0; i < this.size(); i++) {
-            this.elements[i] += v2.get(i);
-        }
-    }
-
-    /**
      * Gets the normalized vector and returns it
      * @see #normalize()
      * @return Normalized vector
@@ -195,6 +183,12 @@ public class Vector extends AbstractVector {
         va.add(new Vector(1d ,2d, 3d));
 
         System.out.println(va);
+
+        // Test vector scaling
+        System.out.println("Testing vector scaling");
+        Vector vs = new Vector(3, 1d);
+        vs.scale(5d);
+        System.out.println(vs);
 
     }
 }
