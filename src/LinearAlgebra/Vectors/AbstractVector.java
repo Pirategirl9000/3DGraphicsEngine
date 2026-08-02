@@ -162,6 +162,26 @@ public abstract class AbstractVector implements Collection<Double> {
         return sb.toString();
     }
 
+    /**
+     * Returns this vector normalized without mutating the original
+     * @return This vector normalized
+     */
+    public abstract AbstractVector getNormalized();
+
+    /**
+     * Returns the sum vector of this vector and another without mutating the original
+     * @param v2 The other vector to add to this one
+     * @return A new vector that is the sum
+     */
+    public abstract AbstractVector getSum(AbstractVector v2);
+
+    /**
+     * Returns this vector scaled by some constant without mutating the original
+     * @param scalar The value to scale by
+     * @return The scaled vector
+     */
+    public abstract AbstractVector getScaled(Double scalar);
+
     //----------------------------------------------------- COLLECTION METHODS -----------------------------------------------------//
     @Override
     public int size() {

@@ -90,6 +90,36 @@ public class Vector extends AbstractVector {
     }
 
     /**
+     * Returns the sum vector of this vector and another without mutating the original
+     * @param v2 The other vector to add to this one
+     * @see #add(AbstractVector) 
+     * @return A new vector that is the sum
+     */
+    @Override
+    public AbstractVector getSum(AbstractVector v2) {
+        if (v2.size() != this.size()) throw new VectorLengthMismatch("Vectors must have equal length to add");
+
+        Double[] newElements = new Double[this.size()];
+
+        for (int i = 0; i < this.size(); i++) {
+            newElements[i] = this.elements[i] + v2.get(i);
+        }
+
+        return new Vector(newElements);
+    }
+
+    /**
+     * Returns this vector scaled by some constant without mutating the original
+     * @param scalar The value to scale by
+     * @see #scale(Double) 
+     * @return The scaled vector
+     */
+    @Override
+    public AbstractVector getScaled(Double scalar) {
+        return new Vector(Arrays.stream(this.elements).map((n) -> n * scalar).toArray(Double[]::new));
+    }
+
+    /**
      * Testing method for this class
      * @param args None
      */
