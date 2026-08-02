@@ -73,7 +73,7 @@ public class Vector extends AbstractVector {
      * @return Normalized vector
      * @throws ArithmeticException if it's a 0 magnitude vector due to divide by zero error
      */
-    public Vector getNormalized() {
+    public synchronized Vector getNormalized() {
         double inverseMag = 1 / getMag();  // We calculate the inverse so normalization can use multiplication instead of repeated division
 
         if (Double.isInfinite(inverseMag)) {
@@ -101,9 +101,12 @@ public class Vector extends AbstractVector {
 
         Double[] newElements = new Double[this.size()];
 
-        for (int i = 0; i < this.size(); i++) {
-            newElements[i] = this.elements[i] + v2.get(i);
+        synchronized (this) {
+            for (int i = 0; i < this.size(); i++) {
+                newElements[i] = this.elements[i] + v2.get(i);
+            }
         }
+
 
         return new Vector(newElements);
     }
@@ -115,7 +118,7 @@ public class Vector extends AbstractVector {
      * @return The scaled vector
      */
     @Override
-    public AbstractVector getScaled(Double scalar) {
+    public synchronized AbstractVector getScaled(Double scalar) {
         return new Vector(Arrays.stream(this.elements).map((n) -> n * scalar).toArray(Double[]::new));
     }
 

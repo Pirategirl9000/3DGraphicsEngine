@@ -51,18 +51,20 @@ public class Vector3 extends Vector {
     public Vector3 crossProduct(@NotNull Vector v2) {
         if (v2.size() != 3) throw new VectorLengthMismatch("Passed Vector does not have size 3");
 
-        return new Vector3(
-                this.y() * v2.get(2) - this.z() * v2.get(1),
-                this.z() * v2.get(0) - this.x() * v2.get(2),
-                this.x() * v2.get(1) - this.y() * v2.get(0)
-        );
+        synchronized (this) {
+            return new Vector3(
+                    this.y() * v2.get(2) - this.z() * v2.get(1),
+                    this.z() * v2.get(0) - this.x() * v2.get(2),
+                    this.x() * v2.get(1) - this.y() * v2.get(0)
+            );
+        }
     }
 
     /**
      * Shorthand for retrieving the first element of the Vector
      * @return element at index 0
      */
-    public Double x() {
+    public synchronized Double x() {
         return this.elements[0];
     }
 
@@ -70,7 +72,7 @@ public class Vector3 extends Vector {
      * Shorthand for retrieving the second element of the Vector
      * @return element at index 1
      */
-    public Double y() {
+    public synchronized Double y() {
         return this.elements[1];
     }
 
@@ -78,7 +80,7 @@ public class Vector3 extends Vector {
      * Shorthand for retrieving the third element of the Vector
      * @return element at index 2
      */
-    public Double z() {
+    public synchronized Double z() {
         return this.elements[2];
     }
 
@@ -86,7 +88,7 @@ public class Vector3 extends Vector {
      * Shorthand for changing the first element of the Vector
      * @param newValue The new value for the element
      */
-    public void x(Double newValue) {
+    public synchronized void x(Double newValue) {
         requeryMag = true;
         this.elements[0] = newValue;
     }
@@ -95,7 +97,7 @@ public class Vector3 extends Vector {
      * Shorthand for changing the second element of the Vector
      * @param newValue The new value for the element
      */
-    public void y(Double newValue) {
+    public synchronized void y(Double newValue) {
         requeryMag = true;
         this.elements[1] = newValue;
     }
@@ -104,7 +106,7 @@ public class Vector3 extends Vector {
      * Shorthand for changing the third element of the Vector
      * @param newValue The new value for the element
      */
-    public void z(Double newValue) {
+    public synchronized void z(Double newValue) {
         requeryMag = true;
         this.elements[2] = newValue;
     }

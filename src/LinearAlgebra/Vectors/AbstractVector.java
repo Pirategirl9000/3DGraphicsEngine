@@ -32,7 +32,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * @param index The index of the element you wish to retrieve
      * @return The Double at that index
      */
-    public Double get(int index) {
+    public synchronized Double get(int index) {
         return elements[index];
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * @param newValue The new value to replace it with
      * @throws IndexOutOfBoundsException if index exceeds the bounds of the Vector
      */
-    public void alter(int index, Double newValue) {
+    public synchronized void alter(int index, Double newValue) {
         requeryMag = true;
         this.elements[index] = newValue;
     }
@@ -52,7 +52,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * Returns the magnitude of the Vector<br>
      * @return The magnitude of the Vector
      */
-    public Double getMag() {
+    public synchronized Double getMag() {
         if (!requeryMag) return magnitude;  // Use the cached length
 
         double newLength = 0.0;
@@ -71,8 +71,12 @@ public abstract class AbstractVector implements Collection<Double> {
      * Normalizes this vectors
      * @throws ArithmeticException if it's a 0 length vector due to divide by zero error
      */
-    public void normalize() {
+    public synchronized void normalize() {
         Double inverseMag = 1 / getMag();  // We calculate the inverse so normalization can use multiplication instead of repeated division
+
+        if (Double.isInfinite(inverseMag)) {
+            throw new ArithmeticException("Error magnitude is zero resulting in divide by zero");
+        }
 
         Double[] newVectorArray = new Double[elements.length];
 
@@ -88,11 +92,13 @@ public abstract class AbstractVector implements Collection<Double> {
      * Adds the vector onto this one
      * @param v2 The other vector to add onto this one
      */
-    public void add(AbstractVector v2) {
+    public void add(@NotNull AbstractVector v2) {
         if (v2.size() != this.size()) throw new VectorLengthMismatch("Vectors must have equal length to add");
 
-        for (int i = 0; i < this.size(); i++) {
-            this.elements[i] += v2.get(i);
+        synchronized (this) {
+            for (int i = 0; i < this.size(); i++) {
+                this.elements[i] += v2.get(i);
+            }
         }
     }
 
@@ -100,7 +106,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * Scales this vector by the given scalar
      * @param scalar The value to scale by
      */
-    public void scale(Double scalar) {
+    public synchronized void scale(@NotNull Double scalar) {
         this.elements = Arrays.stream(this.elements).map((n) -> n * scalar).toArray(Double[]::new);
     }
 
@@ -129,7 +135,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * @return The dot product of the two vectors
      * @throws VectorLengthMismatch if the vectors don't have matching length
      */
-    public Double dotProduct(@NotNull AbstractVector v2) {
+    public synchronized Double dotProduct(@NotNull AbstractVector v2) {
         return dotProduct(this, v2);
     }
 
@@ -137,13 +143,12 @@ public abstract class AbstractVector implements Collection<Double> {
      * Converts the vector to a matrix of 1 x n dimensions
      * @return 1 x n matrix containing this vector's elements
      */
-    public Matrix toMatrix() {
+    public synchronized Matrix toMatrix() {
         return new Matrix(new Double[][] {this.elements});
     }
 
     /**
      * Returns a String representation of the Vector<br>
-     * This is not a thread safe operation
      * @return String representation of the Vector
      */
     @Override
@@ -153,10 +158,14 @@ public abstract class AbstractVector implements Collection<Double> {
         StringBuilder sb = new StringBuilder(500);
 
         sb.append("<");
-        for (int i = 0; i < length; i++) {
-            sb.append(elements[i]);
-            if (i != length - 1) sb.append(", ");
+
+        synchronized (this) {
+            for (int i = 0; i < length; i++) {
+                sb.append(elements[i]);
+                if (i != length - 1) sb.append(", ");
+            }
         }
+
         sb.append(">");
 
         return sb.toString();
@@ -194,7 +203,7 @@ public abstract class AbstractVector implements Collection<Double> {
     }
 
     @Override
-    public boolean contains(Object o) {
+    public synchronized boolean contains(Object o) {
         for (Double element : elements) {
             if (element.equals(o)) {
                 return true;
@@ -205,7 +214,7 @@ public abstract class AbstractVector implements Collection<Double> {
     }
 
     @NotNull
-    public Double[] toArray() {
+    public synchronized Double[] toArray() {
         return elements;
     }
 
@@ -226,7 +235,7 @@ public abstract class AbstractVector implements Collection<Double> {
     }
 
     @Override
-    public boolean containsAll(@NotNull Collection<?> c) {
+    public synchronized boolean containsAll(@NotNull Collection<?> c) {
         for (Object o : c) {
             if (!contains(o)) {
                 return false;
@@ -258,8 +267,8 @@ public abstract class AbstractVector implements Collection<Double> {
 
     @NotNull
     @Override
-    public Iterator<Double> iterator() {
-        return new Iterator<Double>() {
+    public synchronized Iterator<Double> iterator() {
+        return new Iterator<>() {
             private int index = 0;
 
             @Override
