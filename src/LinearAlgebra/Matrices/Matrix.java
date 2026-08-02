@@ -68,18 +68,22 @@ public class Matrix extends AbstractMatrix {
 
         Double[][] newMatrix = new Double[this.rows()][m2.columns()];
 
-        // Apparently this is the schoolbook approach to matrix multiplication. There are faster approaches but nothing of O(n^2)
-        // The solution here is to do parallel algorithms, this is why GPU's exist
-        // Also I'd like to note I first tried this with my only source being an article on how to multiply a matrix, I came up with the algorithm myself
-        // In the future I might come back to this to make it more efficient since it may just kill performance
-        for (int mRow = 0; mRow < this.rows(); mRow++) {
-            for (int m2Col = 0; m2Col < m2.columns(); m2Col++) {
-                double newValue = 0d;
 
-                for (int element = 0; element < this.columns(); element++) {
-                    newValue += this.get(mRow, element) * m2.get(element, m2Col);
+        // TODO: Add ExecutorService to speed this expensive operation up through multithreading
+        synchronized (this) {
+            // Apparently this is the schoolbook approach to matrix multiplication. There are faster approaches but nothing of O(n^2)
+            // The solution here is to do parallel algorithms, this is why GPU's exist
+            // Also I'd like to note I first tried this with my only source being an article on how to multiply a matrix, I came up with the algorithm myself
+            // In the future I might come back to this to make it more efficient since it may just kill performance
+            for (int mRow = 0; mRow < this.rows(); mRow++) {
+                for (int m2Col = 0; m2Col < m2.columns(); m2Col++) {
+                    double newValue = 0d;
+
+                    for (int element = 0; element < this.columns(); element++) {
+                        newValue += this.get(mRow, element) * m2.get(element, m2Col);
+                    }
+                    newMatrix[mRow][m2Col] = newValue;
                 }
-                newMatrix[mRow][m2Col] = newValue;
             }
         }
 
@@ -94,6 +98,8 @@ public class Matrix extends AbstractMatrix {
      * @return new Matrix that is the product
      */
     public AbstractMatrix multiply(@NotNull AbstractVector vec) {
+
+        //TODO: Add ExecutorService here
         Double[][] vecMat = new Double[vec.size()][1];
 
         for (int i = 0; i < vec.size(); i++) {

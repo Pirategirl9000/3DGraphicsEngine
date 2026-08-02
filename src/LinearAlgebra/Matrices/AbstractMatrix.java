@@ -16,7 +16,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
     /**
      * Stores all the elements of the matrix in row major form
      */
-    protected Double[][] elements;
+    protected volatile Double[][] elements;
 
     /**
      * Returns the number of columns
@@ -40,7 +40,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
      * @param column column of the element
      * @return the element at that position
      */
-    public Double get(int row, int column) {
+    public synchronized Double get(int row, int column) {
         return this.elements[row][column];
     }
 
@@ -50,7 +50,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
      * @param column column of the element
      * @param value The new value for the element
      */
-    public void alter(int row, int column, Double value) {
+    public synchronized void alter(int row, int column, Double value) {
         this.elements[row][column] = value;
     }
 
@@ -62,7 +62,9 @@ public abstract class AbstractMatrix implements Collection<Double> {
     public Vector toVector() {
         if (this.rows() != 1) throw new MatrixRowColumnMismatch("Rows must be 1 to convert a matrix to a vector");
 
-        return new Vector(this.elements[0]);
+        synchronized (this) {
+            return new Vector(this.elements[0]);
+        }
     }
 
     @Override
@@ -73,13 +75,16 @@ public abstract class AbstractMatrix implements Collection<Double> {
         StringBuilder sb = new StringBuilder(300);
 
         sb.append("[");
-        for (int i = 0; i < rowLength; i++) {
-            for (int j = 0; j < columnLength; j++) {
-                sb.append(elements[i][j]);
-                if (j + 1 < columnLength) sb.append(" ");
-            }
 
-            if (i + 1 < rowLength) sb.append("\n ");
+        synchronized (this) {
+            for (int i = 0; i < rowLength; i++) {
+                for (int j = 0; j < columnLength; j++) {
+                    sb.append(elements[i][j]);
+                    if (j + 1 < columnLength) sb.append(" ");
+                }
+
+                if (i + 1 < rowLength) sb.append("\n ");
+            }
         }
 
         sb.append("]");
@@ -109,10 +114,12 @@ public abstract class AbstractMatrix implements Collection<Double> {
             return false;
         }
 
-        for (int i = 0; i < elements.length; i++) {
-            for (int j = 0; j < elements[0].length; j++) {
-                if (o.equals(elements[i][j])) {
-                    return true;
+        synchronized (this) {
+            for (int i = 0; i < elements.length; i++) {
+                for (int j = 0; j < elements[0].length; j++) {
+                    if (o.equals(elements[i][j])) {
+                        return true;
+                    }
                 }
             }
         }
@@ -125,9 +132,11 @@ public abstract class AbstractMatrix implements Collection<Double> {
     public Object[] toArray() {
         Object[] array = new Object[elements.length * elements[0].length];
 
-        for (int i = 0; i < elements.length; i++) {
-            for (int j = 0; j < elements[0].length; j++) {
-                array[j * elements[0].length + i] = elements[j][i];
+        synchronized (this) {
+            for (int i = 0; i < elements.length; i++) {
+                for (int j = 0; j < elements[0].length; j++) {
+                    array[j * elements[0].length + i] = elements[j][i];
+                }
             }
         }
 
@@ -156,9 +165,11 @@ public abstract class AbstractMatrix implements Collection<Double> {
         // 7/31/2026 1:49AM: it wasn't
         List<Object> list = new ArrayList<>(List.copyOf(c));  // Pretty sure this doesn't work if the Collection doesn't have an Iterator
 
-        for (int i = 0; i < elements.length; i++) {
-            for (int j = 0; j < elements[0].length; j++) {
-                list.remove(elements[i][j]);
+        synchronized (this) {
+            for (int i = 0; i < elements.length; i++) {
+                for (int j = 0; j < elements[0].length; j++) {
+                    list.remove(elements[i][j]);
+                }
             }
         }
 
@@ -187,7 +198,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
 
     @NotNull
     @Override
-    public Iterator<Double> iterator() {
+    public synchronized Iterator<Double> iterator() {
         return new Iterator<Double>() {
             private int column = 0;
             private int row = 0;
