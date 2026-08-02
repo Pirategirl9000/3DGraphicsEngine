@@ -15,17 +15,17 @@ public abstract class AbstractVector implements Collection<Double> {
     /**
      * The elements of this Vector
      */
-    protected Double[] elements;
+    protected volatile Double[] elements;
 
     /**
      * Refers to the length of the Vector not the number of elements
      */
-    protected Double magnitude;
+    protected volatile Double magnitude;
 
     /**
      * Whether we need to requery the length on next getLength() call
      */
-    protected boolean requeryMag = true;
+    protected volatile boolean requeryMag = true;
 
     /**
      * Gets the element at the given index
