@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+
 import LinearAlgebra.Vectors.Vector;
 
 /**
@@ -35,12 +36,13 @@ public abstract class AbstractMatrix implements Collection<Double> {
     }
 
     /**
-     * Gets the value at the specified position
+     * Gets the value at the specified position <br>
+     * Is not synchronized so use with caution
      * @param row row of the element
      * @param column column of the element
      * @return the element at that position
      */
-    public synchronized Double get(int row, int column) {
+    public Double get(int row, int column) {
         return this.elements[row][column];
     }
 
@@ -92,7 +94,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
         return sb.toString();
     }
 
-    public abstract AbstractMatrix multiply(@NotNull AbstractMatrix m2);
+    public abstract AbstractMatrix multiply(@NotNull AbstractMatrix m2) throws Exception;
 
 
 
