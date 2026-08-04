@@ -7,12 +7,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.concurrent.*;
 
-record MiniDotProduct(int row, int col, Double value) {}
-
 /**
  * Class for creating basic matrices
  */
 public class Matrix extends AbstractMatrix {
+    /**
+     * Stores a dot product for the matrix multiplication, makes it easier to extract information from Futures
+     * @param row The row of this dot product
+     * @param col The column of this dot product
+     * @param value The value of this dot product
+     */
+    private record MiniDotProduct(int row, int col, Double value) {}
+
+
     /**
      * Creates a Matrix from a multidimensional array of Doubles
      * @param elements The elements of the matrix as a nested Double array
@@ -245,16 +252,5 @@ public class Matrix extends AbstractMatrix {
         } catch (MatrixRowColumnMismatch e) {
             System.out.println(e.getMessage());
         }
-
-
-        Matrix mbig = new Matrix(1000, 1000, 1d);
-        Matrix mbig2 = new Matrix(1000, 1000, 1d);
-
-        long start = System.nanoTime();
-        for (int i = 0; i < 10; i++) {
-            mbig.multiply(mbig2);
-        }
-        System.out.println((System.nanoTime() - start) / 1_000_000 / 1000);
-
     }
 }
