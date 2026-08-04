@@ -72,8 +72,7 @@ public class Matrix extends AbstractMatrix {
         Double[][] newMatrix = new Double[this.rows()][m2.columns()];
 
         ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        LinkedList<Future<MiniDotProduct>> futures = new LinkedList<>();
-
+        ArrayDeque<Future<MiniDotProduct>> futures = new ArrayDeque<>();
 
         synchronized (this) {
             for (int mRow = 0; mRow < this.rows(); mRow++) {
@@ -95,16 +94,17 @@ public class Matrix extends AbstractMatrix {
                         return new MiniDotProduct(fmRow, fm2Col, newValue);
                     };
 
-                    futures.add(service.submit(calculate));
+                    futures.addLast(service.submit(calculate));
                 }
             }
 
 
             // Grabs the result of the futures
-            for (Future<MiniDotProduct> f : futures) {
-                MiniDotProduct dp = f.get();
+            while (!futures.isEmpty()) {
+                MiniDotProduct dp = futures.removeLast().get();
                 newMatrix[dp.row()][dp.col()] = dp.value();
             }
+
         }
 
         service.shutdown();
@@ -245,6 +245,16 @@ public class Matrix extends AbstractMatrix {
         } catch (MatrixRowColumnMismatch e) {
             System.out.println(e.getMessage());
         }
+
+
+        Matrix mbig = new Matrix(1000, 1000, 1d);
+        Matrix mbig2 = new Matrix(1000, 1000, 1d);
+
+        long start = System.nanoTime();
+        for (int i = 0; i < 10; i++) {
+            mbig.multiply(mbig2);
+        }
+        System.out.println((System.nanoTime() - start) / 1_000_000 / 1000);
 
     }
 }
