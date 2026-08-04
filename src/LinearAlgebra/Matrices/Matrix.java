@@ -4,8 +4,10 @@ import LinearAlgebra.Vectors.AbstractVector;
 import LinearAlgebra.Vectors.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.List;  // Used for testing
+import java.util.*;
+import java.util.concurrent.*;
+
+record MiniDotProduct(int row, int col, Double value) {}
 
 /**
  * Class for creating basic matrices
@@ -61,32 +63,51 @@ public class Matrix extends AbstractMatrix {
     /**
      * Multiplies this matrix by another and returns the result
      * @param m2 The second matrix to multiply this one by
+     * @throws Exception is something goes wrong
      * @return new Matrix that is the product
      */
-    public AbstractMatrix multiply(@NotNull AbstractMatrix m2) {
+    public AbstractMatrix multiply(@NotNull AbstractMatrix m2) throws Exception {
         if (this.columns() != m2.rows()) throw new MatrixRowColumnMismatch("Invalid rows and columns to perform multiplication");
 
         Double[][] newMatrix = new Double[this.rows()][m2.columns()];
 
+        ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        LinkedList<Future<MiniDotProduct>> futures = new LinkedList<>();
 
-        // TODO: Add ExecutorService to speed this expensive operation up through multithreading
+
         synchronized (this) {
-            // Apparently this is the schoolbook approach to matrix multiplication. There are faster approaches but nothing of O(n^2)
-            // The solution here is to do parallel algorithms, this is why GPU's exist
-            // Also I'd like to note I first tried this with my only source being an article on how to multiply a matrix, I came up with the algorithm myself
-            // In the future I might come back to this to make it more efficient since it may just kill performance
             for (int mRow = 0; mRow < this.rows(); mRow++) {
                 for (int m2Col = 0; m2Col < m2.columns(); m2Col++) {
-                    double newValue = 0d;
 
-                    for (int element = 0; element < this.columns(); element++) {
-                        newValue += this.get(mRow, element) * m2.get(element, m2Col);
-                    }
-                    newMatrix[mRow][m2Col] = newValue;
+                    // These need to be final for a lambda
+                    final int fmRow = mRow;
+                    final int fm2Col = m2Col;
+
+
+                    Callable<MiniDotProduct> calculate = () -> {
+                        double newValue = 0d;
+
+
+                        for (int element = 0; element < this.columns(); element++) {
+                            newValue += this.get(fmRow, element) * m2.get(element, fm2Col);
+                        }
+
+                        return new MiniDotProduct(fmRow, fm2Col, newValue);
+                    };
+
+                    futures.add(service.submit(calculate));
                 }
+            }
+
+
+            // Grabs the result of the futures
+            for (Future<MiniDotProduct> f : futures) {
+                MiniDotProduct dp = f.get();
+                newMatrix[dp.row()][dp.col()] = dp.value();
             }
         }
 
+        service.shutdown();
         return new Matrix(newMatrix);
 
     }
@@ -95,11 +116,10 @@ public class Matrix extends AbstractMatrix {
      * Multiplies this matrix by the vector and returns the result<br>
      * Note that this is not the same as multiplying a vector by a matrix
      * @param vec The Vector to multiply this matrix by
+     * @throws Exception if something goes wrong
      * @return new Matrix that is the product
      */
-    public AbstractMatrix multiply(@NotNull AbstractVector vec) {
-
-        //TODO: Add ExecutorService here
+    public AbstractMatrix multiply(@NotNull AbstractVector vec) throws Exception {
         Double[][] vecMat = new Double[vec.size()][1];
 
         for (int i = 0; i < vec.size(); i++) {
@@ -113,7 +133,7 @@ public class Matrix extends AbstractMatrix {
      * Testing method for the Matrix and AbstractMatrix classes
      * @param args None
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // Create a valid matrix
         System.out.println("Creating valid matrices");
         Matrix matrix = new Matrix(new Double[][] {
@@ -225,5 +245,6 @@ public class Matrix extends AbstractMatrix {
         } catch (MatrixRowColumnMismatch e) {
             System.out.println(e.getMessage());
         }
+
     }
 }
