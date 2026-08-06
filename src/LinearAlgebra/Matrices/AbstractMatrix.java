@@ -57,6 +57,38 @@ public abstract class AbstractMatrix implements Collection<Double> {
     }
 
     /**
+     * Returns the trace of this matrix
+     * @throws InvalidMatrixLengthException if it's not a square matrix
+     * @return the sum of the diagonals
+     */
+    public synchronized Double trace() {
+        if (this.rows() != this.columns()) throw new InvalidMatrixLengthException("Trace operation requires a square matrix");
+
+        double total = 0d;
+
+        for (int i = 0; i < this.rows(); i++) {
+            total += this.get(i, i);
+        }
+
+        return total;
+    }
+
+    /**
+     * Adds the matrix onto this one<br><br>
+     * For a non-destructive version view {@link #sum(AbstractMatrix m2)}
+     * @param m2 The matrix to add onto this one
+     */
+    public synchronized void add(AbstractMatrix m2) {
+        if (this.rows() != m2.rows() || this.columns() != m2.columns()) throw new InvalidMatrixLengthException("Matrices must have matching dimensions to be added");
+
+        for (int i = 0; i < this.rows(); i++) {
+            for (int j = 0; j < this.columns(); j++) {
+                this.elements[i][j] += m2.get(i, j);
+            }
+        }
+    }
+
+    /**
      * Tries to convert the matrix to a vector
      * @return Vector with elements of the matrix
      * @throws MatrixRowColumnMismatch if the matrix doesn't have 1 row, 1 column matrices are not supported for conversions
@@ -95,6 +127,14 @@ public abstract class AbstractMatrix implements Collection<Double> {
     }
 
     public abstract AbstractMatrix multiply(@NotNull AbstractMatrix m2) throws Exception;
+
+    /**
+     * Returns a new matrix that is the sum of the two vectors
+     * @param m2 the matrix to add onto this one
+     * @return The new matrix which is the sum
+     */
+    public abstract AbstractMatrix sum(AbstractMatrix m2);
+
 
 
 
