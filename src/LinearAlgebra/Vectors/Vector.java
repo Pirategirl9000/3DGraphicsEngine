@@ -48,7 +48,8 @@ public class Vector extends AbstractVector {
     }
 
     /**
-     * Creates a new Vector from a Collection of Doubles
+     * Creates a new Vector from a Collection of Doubles (can be used to create a copy of a vector)<br><br>
+     * Uses the Iterator for the collection so some Collection data structures may not be optimized for this
      * @param elements The elements for the new vector
      */
     public Vector(@NotNull Collection<Double> elements) {
@@ -68,7 +69,7 @@ public class Vector extends AbstractVector {
     }
 
     /**
-     * Gets the normalized vector and returns it
+     * Gets the normalized (unit) vector and returns it
      * @see #normalize()
      * @return Normalized vector
      * @throws ArithmeticException if it's a 0 magnitude vector due to divide by zero error
