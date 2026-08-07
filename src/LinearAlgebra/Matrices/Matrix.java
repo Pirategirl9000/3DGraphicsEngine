@@ -4,8 +4,13 @@ import LinearAlgebra.Vectors.AbstractVector;
 import LinearAlgebra.Vectors.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayDeque;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.Arrays;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Callable;
+import java.util.List;
 
 /**
  * Class for creating basic matrices
@@ -240,9 +245,7 @@ public class Matrix extends AbstractMatrix {
 
         // Test Matrix * Vector multiplication
         System.out.println("Testing Matrix and Vector multiplication");
-        Vector v = new Vector(new Double[] {
-                1d, 2d, 3d
-        });
+        Vector v = new Vector(1d, 2d, 3d);
 
         Matrix m3 = new Matrix(new Double[][] {
                 {1d, 2d, 3d},
