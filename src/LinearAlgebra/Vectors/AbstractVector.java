@@ -1,6 +1,5 @@
 package LinearAlgebra.Vectors;
 
-import LinearAlgebra.Matrices.AbstractMatrix;
 import LinearAlgebra.Matrices.Matrix;
 import org.jetbrains.annotations.NotNull;
 
