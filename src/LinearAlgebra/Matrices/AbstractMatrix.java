@@ -2,8 +2,11 @@ package LinearAlgebra.Matrices;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
-
+import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import LinearAlgebra.Vectors.Vector;
 
 /**
@@ -161,6 +164,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
         }
 
         synchronized (this) {
+            //noinspection ForLoopReplaceableByForEach
             for (int i = 0; i < elements.length; i++) {
                 for (int j = 0; j < elements[0].length; j++) {
                     if (o.equals(elements[i][j])) {
@@ -212,6 +216,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
         List<Object> list = new ArrayList<>(List.copyOf(c));  // Pretty sure this doesn't work if the Collection doesn't have an Iterator
 
         synchronized (this) {
+            //noinspection ForLoopReplaceableByForEach
             for (int i = 0; i < elements.length; i++) {
                 for (int j = 0; j < elements[0].length; j++) {
                     list.remove(elements[i][j]);
@@ -245,7 +250,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
     @NotNull
     @Override
     public synchronized Iterator<Double> iterator() {
-        return new Iterator<Double>() {
+        return new Iterator<>() {
             private int column = 0;
             private int row = 0;
 
