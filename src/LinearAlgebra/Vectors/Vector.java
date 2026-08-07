@@ -97,7 +97,7 @@ public class Vector extends AbstractVector {
      * @return A new vector that is the sum
      */
     @Override
-    public AbstractVector getSum(AbstractVector v2) {
+    public Vector getSum(AbstractVector v2) {
         if (v2.size() != this.size()) throw new VectorLengthMismatch("Vectors must have equal length to add");
 
         Double[] newElements = new Double[this.size()];
@@ -119,7 +119,7 @@ public class Vector extends AbstractVector {
      * @return The scaled vector
      */
     @Override
-    public synchronized AbstractVector getScaled(Double scalar) {
+    public synchronized Vector getScaled(Double scalar) {
         return new Vector(Arrays.stream(this.elements).map((n) -> n * scalar).toArray(Double[]::new));
     }
 
