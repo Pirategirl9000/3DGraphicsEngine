@@ -121,19 +121,18 @@ public class Matrix extends AbstractMatrix {
 
     /**
      * Multiplies this matrix by the vector and returns the result<br>
-     * Note that this is not the same as multiplying a vector by a matrix
      * @param vec The Vector to multiply this matrix by
      * @throws Exception if something goes wrong
-     * @return new Matrix that is the product
+     * @return new Vector that is the product
      */
-    public AbstractMatrix multiply(@NotNull AbstractVector vec) throws Exception {
+    public AbstractVector multiply(@NotNull AbstractVector vec) throws Exception {
         Double[][] vecMat = new Double[vec.size()][1];
 
         for (int i = 0; i < vec.size(); i++) {
             vecMat[i][0] = vec.get(i);
         }
 
-        return this.multiply(new Matrix(vecMat));
+        return this.multiply(new Matrix(vecMat)).toVector();
     }
 
     /**
