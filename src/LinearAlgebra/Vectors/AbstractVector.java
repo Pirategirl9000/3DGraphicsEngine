@@ -144,7 +144,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * Converts the vector to a matrix of 1 x n dimensions
      * @return 1 x n matrix containing this vector's elements
      */
-    public synchronized AbstractMatrix toMatrix() {
+    public synchronized Matrix toMatrix() {
         return new Matrix(new Double[][] {this.elements});
     }
 
