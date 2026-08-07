@@ -1,8 +1,5 @@
 package LinearAlgebra.Vectors;
 
-//TODO: Add shortcuts for performing linear transformations on these vectors
-
-import LinearAlgebra.Matrices.Matrix;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,7 +23,7 @@ public class Vector3 extends Vector {
      * @param z The value for the third element
      */
     public Vector3(Double x, Double y, Double z) {
-        super(new Double[] {x,y,z});
+        super(x,y,z);
     }
 
     /**
@@ -183,7 +180,7 @@ public class Vector3 extends Vector {
 
         // Testing invalid cross product
         System.out.println("Testing invalid cross product");
-        Vector bigvec = new Vector(new Double[] {1d,1d,1d,1d});
+        Vector bigvec = new Vector(1d,1d,1d,1d);
         try {
             v.crossProduct(bigvec);
         } catch (VectorLengthMismatch e) {
