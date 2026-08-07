@@ -111,6 +111,16 @@ public abstract class AbstractVector implements Collection<Double> {
     }
 
     /**
+     * Scales the element at the given index
+     * @param index The index of the element to scale
+     * @param scalar The scalar multiple
+     * @throws IndexOutOfBoundsException if there is no element at that index
+     */
+    public synchronized void scaleEl(@NotNull int index, @NotNull Double scalar) {
+        this.elements[index] *= scalar;
+    }
+
+    /**
      * Calculates the dot product of two vectors
      * @param v1 The first vector
      * @param v2 The second vector
