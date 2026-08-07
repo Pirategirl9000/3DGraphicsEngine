@@ -62,7 +62,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
      * @return the sum of the diagonals
      */
     public synchronized Double trace() {
-        if (this.rows() != this.columns()) throw new InvalidMatrixLengthException("Trace operation requires a square matrix");
+        if (!isSquare()) throw new InvalidMatrixLengthException("Trace operation requires a square matrix");
 
         double total = 0d;
 
@@ -78,7 +78,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
      * For a non-destructive version view {@link #sum(AbstractMatrix m2)}
      * @param m2 The matrix to add onto this one
      */
-    public synchronized void add(AbstractMatrix m2) {
+    public synchronized void add(@NotNull AbstractMatrix m2) {
         if (this.rows() != m2.rows() || this.columns() != m2.columns()) throw new InvalidMatrixLengthException("Matrices must have matching dimensions to be added");
 
         for (int i = 0; i < this.rows(); i++) {
@@ -99,6 +99,14 @@ public abstract class AbstractMatrix implements Collection<Double> {
         synchronized (this) {
             return new Vector(this.elements[0]);
         }
+    }
+
+    /**
+     * Checks whether this is a square matrix
+     * @return true or false
+     */
+    public boolean isSquare() {
+        return this.columns() == this.rows();
     }
 
     @Override
@@ -133,7 +141,7 @@ public abstract class AbstractMatrix implements Collection<Double> {
      * @param m2 the matrix to add onto this one
      * @return The new matrix which is the sum
      */
-    public abstract AbstractMatrix sum(AbstractMatrix m2);
+    public abstract AbstractMatrix sum(@NotNull AbstractMatrix m2);
 
 
 

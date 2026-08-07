@@ -141,7 +141,7 @@ public class Matrix extends AbstractMatrix {
      * @param m2 the other matrix to add onto this one
      * @return A new matrix that is the sum
      */
-    public AbstractMatrix sum(AbstractMatrix m2) {
+    public AbstractMatrix sum(@NotNull AbstractMatrix m2) {
         if (this.rows() != m2.rows() || this.columns() != m2.columns()) throw new InvalidMatrixLengthException("Matrices must have matching dimensions to be added");
 
         Double[][] newMatrix = new Double[this.rows()][this.columns()];
