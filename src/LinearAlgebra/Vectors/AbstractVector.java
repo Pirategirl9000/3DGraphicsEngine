@@ -140,6 +140,27 @@ public abstract class AbstractVector implements Collection<Double> {
     }
 
     /**
+     * Gets the angle between the two vectors
+     * @param v1 The first vector
+     * @param v2 The second vector
+     * @throws VectorLengthMismatch if the vectors don't have matching number of elements
+     * @return The angle in radians between the vectors
+     */
+    public static Double angleBetween(@NotNull AbstractVector v1, @NotNull AbstractVector v2) {
+        return Math.acos(dotProduct(v1, v2) / (v1.getMag() * v2.getMag()));
+    }
+
+    /**
+     * Gets the angle between the two vectors
+     * @param v2 The second vector
+     * @throws VectorLengthMismatch if the vectors don't have matching number of elements
+     * @return The angle in radians between the vectors
+     */
+    public synchronized Double angleBetween(@NotNull AbstractVector v2) {
+        return angleBetween(this, v2);
+    }
+
+    /**
      * Converts the vector to a matrix of 1 x n dimensions
      * @return 1 x n matrix containing this vector's elements
      */
