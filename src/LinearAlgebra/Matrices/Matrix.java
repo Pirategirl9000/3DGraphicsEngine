@@ -148,7 +148,7 @@ public class Matrix extends AbstractMatrix {
 
         for (int i = 0; i < this.rows(); i++) {
             for (int j = 0; j < this.columns(); j++) {
-                newMatrix[i][j] += m2.get(i, j);
+                newMatrix[i][j] = m2.get(i, j) + this.get(i, j);
             }
         }
 
@@ -271,5 +271,43 @@ public class Matrix extends AbstractMatrix {
         } catch (MatrixRowColumnMismatch e) {
             System.out.println(e.getMessage());
         }
+
+        // Test Trace
+        System.out.println("Testing trace valid");
+        Matrix mt = new Matrix(3, 3, 1d);
+        System.out.println(mt.trace());
+
+        // Test invalid trace
+        System.out.println("Testing invalid trace");
+        try {
+            new Matrix(3, 2, 1d).trace();
+        } catch (InvalidMatrixLengthException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Test sum and add
+        System.out.println("Testing valid add to matrix, should be a matrix of 2's");
+        mt.add(new Matrix(3, 3, 1d));
+        System.out.println(mt);
+
+        System.out.println("Testing valid sum of matrices, should be all 3's");
+        System.out.println(mt.sum(new Matrix(3, 3, 1d)));
+
+        System.out.println("Testing invalid add to matrix");
+        try {
+            mt.add(new Matrix(3, 2, 1d));
+        } catch (InvalidMatrixLengthException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Testing invalid sum of matrices");
+        try {
+            mt.sum(new Matrix(3, 2, 1d));
+        } catch (InvalidMatrixLengthException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+
     }
 }
