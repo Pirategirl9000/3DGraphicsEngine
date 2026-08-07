@@ -142,6 +142,12 @@ public abstract class AbstractMatrix implements Collection<Double> {
      */
     public abstract AbstractMatrix sum(@NotNull AbstractMatrix m2);
 
+    /**
+     * Transposes (switches the columns and rows) the matrix
+     * @return The transposed matrix
+     */
+    public abstract AbstractMatrix transpose();
+
 
 
 

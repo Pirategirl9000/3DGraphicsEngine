@@ -141,6 +141,23 @@ public class Matrix extends AbstractMatrix {
     }
 
     /**
+     * Transposes (switches the columns and rows) the matrix
+     * @return The transposed matrix
+     */
+    @Override
+    public AbstractMatrix transpose() {
+        Double[][] newMatrix = new Double[this.columns()][this.rows()];
+
+        for (int i = 0; i < this.rows(); i++) {
+            for (int j = 0; j < this.columns(); j++) {
+                newMatrix[j][i] = this.elements[i][j];
+            }
+        }
+
+        return new Matrix(newMatrix);
+    }
+
+    /**
      * Sums the two matrices and returns the result
      * @param m2 the other matrix to add onto this one
      * @return A new matrix that is the sum
@@ -309,7 +326,14 @@ public class Matrix extends AbstractMatrix {
             System.out.println(e.getMessage());
         }
 
-
+        // Testing transpose
+        System.out.println("Testing transpose");
+        Matrix mTrans = new Matrix(new Double[][] {
+                {1d, 2d},
+                {3d, 4d},
+                {5d, 6d}
+        });
+        System.out.println(mTrans.transpose());
 
     }
 }
