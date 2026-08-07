@@ -116,7 +116,7 @@ public abstract class AbstractVector implements Collection<Double> {
      * @param scalar The scalar multiple
      * @throws IndexOutOfBoundsException if there is no element at that index
      */
-    public synchronized void scaleEl(@NotNull int index, @NotNull Double scalar) {
+    public synchronized void scaleEl(int index, @NotNull Double scalar) {
         this.elements[index] *= scalar;
     }
 
