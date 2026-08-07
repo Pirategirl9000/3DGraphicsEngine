@@ -1,7 +1,5 @@
 package LinearAlgebra.Vectors;
 
-//TODO: Add methods for linear transformations
-
 import org.jetbrains.annotations.NotNull;
 
 /**
