@@ -1,4 +1,8 @@
 package Rendering.Scene;
 
-public class Camera {
+/**
+ * Concrete implementation of AbstractCamera
+ */
+public class Camera extends AbstractCamera {
+
 }
