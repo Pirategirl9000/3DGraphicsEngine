@@ -1,4 +1,4 @@
-package LinearAlgebra.Matrices;
+package Rendering.Math.Matrices;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import LinearAlgebra.Vectors.Vector;
+import Rendering.Math.Vectors.Vector;
 
 /**
  * Abstract class for implementing methods for handling a row major matrix

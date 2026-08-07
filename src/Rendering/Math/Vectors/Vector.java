@@ -1,4 +1,4 @@
-package LinearAlgebra.Vectors;
+package Rendering.Math.Vectors;
 
 
 import org.jetbrains.annotations.NotNull;

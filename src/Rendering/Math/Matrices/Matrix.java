@@ -1,7 +1,7 @@
-package LinearAlgebra.Matrices;
+package Rendering.Math.Matrices;
 
-import LinearAlgebra.Vectors.AbstractVector;
-import LinearAlgebra.Vectors.Vector;
+import Rendering.Math.Vectors.AbstractVector;
+import Rendering.Math.Vectors.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayDeque;

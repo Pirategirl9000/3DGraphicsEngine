@@ -1,4 +1,4 @@
-package LinearAlgebra.Matrices;
+package Rendering.Math.Matrices;
 
 public class InvalidMatrixLengthException extends RuntimeException {
     public InvalidMatrixLengthException(String message) {

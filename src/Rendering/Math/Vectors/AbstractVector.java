@@ -1,6 +1,6 @@
-package LinearAlgebra.Vectors;
+package Rendering.Math.Vectors;
 
-import LinearAlgebra.Matrices.Matrix;
+import Rendering.Math.Matrices.Matrix;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
