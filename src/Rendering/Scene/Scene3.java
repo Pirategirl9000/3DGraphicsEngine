@@ -3,7 +3,32 @@ package Rendering.Scene;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class for handling 3D scenes using a swing JPanel
+ */
 public class Scene3 extends JPanel {
+    /**
+     * The camera for this scene
+     */
+    private AbstractCamera camera;
+
+    /**
+     * Creates a new 3D scene with a configured camera
+     * @param camera The camera for this scene
+     */
+    public Scene3(AbstractCamera camera) {
+        this.camera = camera;
+    }
+
+    /**
+     * Creates a new 3D scene with a default camera
+     */
+    public Scene3() {
+        this(new Camera());
+    }
+
+
+
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(new Color(0 ,0, 0));
