@@ -2,6 +2,7 @@ package LinearAlgebra.Vectors;
 
 //TODO: Add shortcuts for performing linear transformations on these vectors
 
+import LinearAlgebra.Matrices.Matrix;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -112,6 +113,33 @@ public class Vector3 extends Vector {
     }
 
     /**
+     * Rotates the vector about the x-axis
+     * @param angle The angle in radians
+     */
+    public synchronized void rotateX(Double angle) {
+        this.y(this.y() * Math.cos(angle) + this.z() * Math.sin(angle));
+        this.z(-this.y() * Math.sin(angle) + this.z() * Math.cos(angle));
+    }
+
+    /**
+     * Rotates the vector about the y-axis
+     * @param angle The angle in radians
+     */
+    public synchronized void rotateY(Double angle) {
+        this.x(this.x() * Math.cos(angle) - this.z() * Math.sin(angle));
+        this.z(this.x() * Math.sin(angle) + this.z() * Math.cos(angle));
+    }
+
+    /**
+     * Rotates the vector about the z-axis
+     * @param angle The angle in radians
+     */
+    public synchronized void rotateZ(Double angle) {
+        this.x(this.x() * Math.cos(angle) + this.y() * Math.sin(angle));
+        this.y(-this.x() * Math.sin(angle) + this.y() * Math.cos(angle));
+    }
+
+    /**
      * Method for testing the class
      * @param args None
      * For testing of superclass and its methods see {@link Vector#main(String[])}
@@ -161,5 +189,23 @@ public class Vector3 extends Vector {
         } catch (VectorLengthMismatch e) {
             System.out.println(e.getMessage());
         }
+
+        // Testing rotation
+        System.out.println("Testing x rotation");
+        Vector3 rotateVect = new Vector3(3d, 3d, 3d);
+        rotateVect.rotateX(Math.PI);
+        System.out.println(rotateVect);
+
+        System.out.println("Testing y rotation");
+        rotateVect = new Vector3(3d, 3d, 3d);
+        rotateVect.rotateY(Math.PI);
+        System.out.println(rotateVect);
+
+        System.out.println("Testing z rotation");
+        rotateVect = new Vector3(3d, 3d, 3d);
+        rotateVect.rotateZ(Math.PI);
+        System.out.println(rotateVect);
+
+
     }
 }
