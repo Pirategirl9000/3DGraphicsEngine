@@ -224,5 +224,8 @@ public class Vector extends AbstractVector {
         vs.scale(5d);
         System.out.println(vs);
 
+        // Testing angleBetween
+        System.out.println("Testing angle between two vectors");
+        System.out.println(new Vector(1d, 0d, 0d).angleBetween(new Vector(0d, 1d, 0d)));  // This is the angle between the x unit vector and y unit vector, should be pi / 2
     }
 }
