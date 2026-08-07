@@ -24,7 +24,7 @@ public class Vector3H extends Vector {
      * @param elements The elements for the Vector
      * @throws InvalidVectorLengthException if array is not 4 elements long
      */
-    public Vector3H(@NotNull Double[] elements) {
+    public Vector3H(@NotNull Double... elements) {
         super(elements);
 
         if (elements.length != 4) {
@@ -267,5 +267,22 @@ public class Vector3H extends Vector {
         v.scaleZ(2d);
 
         System.out.println(v);
+        
+        // Testing rotate
+        // Testing rotation
+        System.out.println("Testing x rotation");
+        Vector3H rotateVect = new Vector3H(3d, 3d, 3d, 1d);
+        rotateVect.rotateX(Math.PI);
+        System.out.println(rotateVect);
+
+        System.out.println("Testing y rotation");
+        rotateVect = new Vector3H(3d, 3d, 3d, 1d);
+        rotateVect.rotateY(Math.PI);
+        System.out.println(rotateVect);
+
+        System.out.println("Testing z rotation");
+        rotateVect = new Vector3H(3d, 3d, 3d, 1d);
+        rotateVect.rotateZ(Math.PI);
+        System.out.println(rotateVect);
     }
 }
