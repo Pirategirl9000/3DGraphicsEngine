@@ -241,5 +241,31 @@ public class Vector3H extends Vector {
         v.z(6d);
         v.w(6d);
         System.out.println(v);
+
+        // Testing translate
+        System.out.println("Testing translate");
+        v.translateX(100d);
+        v.translateY(100d);
+        v.translateZ(100d);
+        System.out.println(v);
+
+        // Testing invalid translate
+        System.out.println("Testing invalid translate");
+        try {
+            v.w(0);
+            v.translateX(1d);
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
+        }
+
+        v.w(1);
+
+        // Testing scale
+        System.out.println("Testing scale");
+        v.scaleX(2d);
+        v.scaleY(2d);
+        v.scaleZ(2d);
+
+        System.out.println(v);
     }
 }
