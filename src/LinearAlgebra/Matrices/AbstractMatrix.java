@@ -1,6 +1,5 @@
 package LinearAlgebra.Matrices;
 
-import LinearAlgebra.Vectors.VectorLengthMismatch;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
