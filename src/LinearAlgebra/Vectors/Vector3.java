@@ -227,6 +227,13 @@ public class Vector3 extends Vector {
         rotateVect.rotateZ(Math.PI);
         System.out.println(rotateVect);
 
+        // Testing scale
+        System.out.println("Testing scale");
+        v.scaleX(100d);
+        v.scaleY(100d);
+        v.scaleZ(100d);
+
+        System.out.println(v);
 
     }
 }
