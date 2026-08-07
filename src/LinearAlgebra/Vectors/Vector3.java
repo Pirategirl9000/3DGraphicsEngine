@@ -141,7 +141,7 @@ public class Vector3 extends Vector {
      * @param scalar The scalar multiple
      */
     public synchronized void scaleX(Double scalar) {
-        this.x(this.x() * scalar);
+        this.scaleEl(0, scalar);
     }
 
     /**
@@ -149,7 +149,7 @@ public class Vector3 extends Vector {
      * @param scalar The scalar multiple
      */
     public synchronized void scaleY(Double scalar) {
-        this.y(this.y() * scalar);
+        this.scaleEl(1, scalar);
     }
 
     /**
@@ -157,7 +157,7 @@ public class Vector3 extends Vector {
      * @param scalar The scalar multiple
      */
     public synchronized void scaleZ(Double scalar) {
-        this.z(this.z() * scalar);
+        this.scaleEl(2, scalar);
     }
 
     /**
