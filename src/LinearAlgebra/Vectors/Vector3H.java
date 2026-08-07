@@ -215,12 +215,12 @@ public class Vector3H extends Vector {
         System.out.println("Testing valid construction");
         Vector3H v = new Vector3H();
         Vector3H v2 = new Vector3H(3d, 1d);
-        Vector3H v3 = new Vector3H(new Double[] {1d, 2d, 3d, 1d});
+        Vector3H v3 = new Vector3H(1d, 2d, 3d, 1d);
 
         // Testing invalid construction
         System.out.println("Testing invalid construction");
         try {
-            new Vector3H(new Double[] {1d, 1d, 1d, 1d, 1d});
+            new Vector3H(1d, 1d, 1d, 1d, 1d);
         } catch (InvalidVectorLengthException e) {
             System.out.println(e.getMessage());
         }
