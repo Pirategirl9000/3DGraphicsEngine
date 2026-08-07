@@ -160,6 +160,54 @@ public class Vector3H extends Vector {
     }
 
     /**
+     * Translates the x value the given amount, note that you do not need to account for your homogenous value in your translation
+     * @param amount The amount to translate
+     * @throws ArithmeticException if the homogenous value is 0
+     * @throws NullPointerException if x or w is null
+     */
+    public synchronized void translateX(Double amount) {
+        // Technically we can translate without a homogenous coordinate since this isn't actual linear algebra, however it's my goal to emulate it for the most part
+        // So we'll make this operation illegal
+        if (this.w() == 0) throw new ArithmeticException("Cannot translate with 0 homogenous value");
+
+        // I will however allow them to pass their amount directly since you could technically translate by any non-zero value regardless of your homogenous value
+        // i.e. w = 1/3 :: this.x(this.x() + amount * (w / w)) = this.x(this.x() + amount)
+        this.x(this.x() + amount);
+    }
+
+    /**
+     * Translates the y value the given amount, note that you do not need to account for your homogenous value in your translation
+     * @param amount The amount to translate
+     * @throws ArithmeticException if the homogenous value is 0
+     * @throws NullPointerException if y or w is null
+     */
+    public synchronized void translateY(Double amount) {
+        // Technically we can translate without a homogenous coordinate since this isn't actual linear algebra, however it's my goal to emulate it for the most part
+        // So we'll make this operation illegal
+        if (this.w() == 0) throw new ArithmeticException("Cannot translate with 0 homogenous value");
+
+        // I will however allow them to pass their amount directly since you could technically translate by any non-zero value regardless of your homogenous value
+        // i.e. w = 1/3 :: this.x(this.x() + amount * (w / w)) = this.x(this.x() + amount)
+        this.y(this.y() + amount);
+    }
+
+    /**
+     * Translates the z value the given amount, note that you do not need to account for your homogenous value in your translation
+     * @param amount The amount to translate
+     * @throws ArithmeticException if the homogenous value is 0
+     * @throws NullPointerException if z or w is null
+     */
+    public synchronized void translateZ(Double amount) {
+        // Technically we can translate without a homogenous coordinate since this isn't actual linear algebra, however it's my goal to emulate it for the most part
+        // So we'll make this operation illegal
+        if (this.w() == 0) throw new ArithmeticException("Cannot translate with 0 homogenous value");
+
+        // I will however allow them to pass their amount directly since you could technically translate by any non-zero value regardless of your homogenous value
+        // i.e. w = 1/3 :: this.x(this.x() + amount * (w / w)) = this.x(this.x() + amount)
+        this.z(this.z() + amount);
+    }
+
+    /**
      * Method for testing the class
      * @param args None
      * For testing of superclass and its methods see {@link Vector#main(String[])}
