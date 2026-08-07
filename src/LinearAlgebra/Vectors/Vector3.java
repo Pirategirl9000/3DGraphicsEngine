@@ -48,7 +48,7 @@ public class Vector3 extends Vector {
      * @param v2 The other Vector to calculate the cross product of
      * @return resultant Vector3
      */
-    public Vector3 crossProduct(@NotNull Vector v2) {
+    public Vector3 crossProduct(@NotNull AbstractVector v2) {
         if (v2.size() != 3) throw new VectorLengthMismatch("Passed Vector does not have size 3");
 
         synchronized (this) {
