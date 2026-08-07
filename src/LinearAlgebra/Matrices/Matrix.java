@@ -73,7 +73,7 @@ public class Matrix extends AbstractMatrix {
      * @throws Exception is something goes wrong
      * @return new Matrix that is the product
      */
-    public AbstractMatrix multiply(@NotNull AbstractMatrix m2) throws Exception {
+    public Matrix multiply(@NotNull AbstractMatrix m2) throws Exception {
         if (this.columns() != m2.rows()) throw new MatrixRowColumnMismatch("Invalid rows and columns to perform multiplication");
 
         Double[][] newMatrix = new Double[this.rows()][m2.columns()];
@@ -125,7 +125,7 @@ public class Matrix extends AbstractMatrix {
      * @throws Exception if something goes wrong
      * @return new Vector that is the product
      */
-    public AbstractVector multiply(@NotNull AbstractVector vec) throws Exception {
+    public Vector multiply(@NotNull AbstractVector vec) throws Exception {
         Double[][] vecMat = new Double[vec.size()][1];
 
         for (int i = 0; i < vec.size(); i++) {
@@ -140,7 +140,7 @@ public class Matrix extends AbstractMatrix {
      * @param m2 the other matrix to add onto this one
      * @return A new matrix that is the sum
      */
-    public AbstractMatrix sum(@NotNull AbstractMatrix m2) {
+    public Matrix sum(@NotNull AbstractMatrix m2) {
         if (this.rows() != m2.rows() || this.columns() != m2.columns()) throw new InvalidMatrixLengthException("Matrices must have matching dimensions to be added");
 
         Double[][] newMatrix = new Double[this.rows()][this.columns()];
