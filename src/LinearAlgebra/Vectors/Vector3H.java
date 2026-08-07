@@ -136,6 +136,30 @@ public class Vector3H extends Vector {
     }
 
     /**
+     * Scales the x component by the given amount
+     * @param scalar The scalar multiple
+     */
+    public synchronized void scaleX(Double scalar) {
+        this.scaleEl(0, scalar);
+    }
+
+    /**
+     * Scales the y component by the given amount
+     * @param scalar The scalar multiple
+     */
+    public synchronized void scaleY(Double scalar) {
+        this.scaleEl(1, scalar);
+    }
+
+    /**
+     * Scales the z component by the given amount
+     * @param scalar The scalar multiple
+     */
+    public synchronized void scaleZ(Double scalar) {
+        this.scaleEl(2, scalar);
+    }
+
+    /**
      * Method for testing the class
      * @param args None
      * For testing of superclass and its methods see {@link Vector#main(String[])}
