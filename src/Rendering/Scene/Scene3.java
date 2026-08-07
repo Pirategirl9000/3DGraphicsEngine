@@ -1,5 +1,7 @@
 package Rendering.Scene;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,7 +18,7 @@ public class Scene3 extends JPanel {
      * Creates a new 3D scene with a configured camera
      * @param camera The camera for this scene
      */
-    public Scene3(AbstractCamera camera) {
+    public Scene3(@NotNull AbstractCamera camera) {
         this.camera = camera;
     }
 
@@ -25,6 +27,21 @@ public class Scene3 extends JPanel {
      */
     public Scene3() {
         this(new Camera());
+    }
+
+    /**
+     * Sets a new camera for this scene
+     * @param camera The new camera
+     */
+    public void setCamera(@NotNull AbstractCamera camera) {
+        this.camera = camera;
+    }
+
+    /**
+     * Gets the camera for this scene
+     */
+    public AbstractCamera getCamera() {
+        return this.camera;
     }
 
 
