@@ -109,6 +109,33 @@ public class Vector3H extends Vector {
     }
 
     /**
+     * Rotates the vector about the x-axis
+     * @param angle The angle in radians
+     */
+    public synchronized void rotateX(Double angle) {
+        this.y(this.y() * Math.cos(angle) + this.z() * Math.sin(angle));
+        this.z(-this.y() * Math.sin(angle) + this.z() * Math.cos(angle));
+    }
+
+    /**
+     * Rotates the vector about the y-axis
+     * @param angle The angle in radians
+     */
+    public synchronized void rotateY(Double angle) {
+        this.x(this.x() * Math.cos(angle) - this.z() * Math.sin(angle));
+        this.z(this.x() * Math.sin(angle) + this.z() * Math.cos(angle));
+    }
+
+    /**
+     * Rotates the vector about the z-axis
+     * @param angle The angle in radians
+     */
+    public synchronized void rotateZ(Double angle) {
+        this.x(this.x() * Math.cos(angle) + this.y() * Math.sin(angle));
+        this.y(-this.x() * Math.sin(angle) + this.y() * Math.cos(angle));
+    }
+
+    /**
      * Method for testing the class
      * @param args None
      * For testing of superclass and its methods see {@link Vector#main(String[])}
