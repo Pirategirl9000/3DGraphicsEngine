@@ -130,7 +130,7 @@ public class Vector extends AbstractVector {
         System.out.println("Creating Vectors");
         Vector v = new Vector(3, 3.0);
         Vector v2 = new Vector(4);
-        Vector v3 = new Vector(new Double[] {1d, 2d, 3d, 4d});
+        Vector v3 = new Vector(1d, 2d, 3d, 4d);
         Vector v4 = new Vector(List.of(1d, 2d, 3d));
 
         // Testing toString() method
