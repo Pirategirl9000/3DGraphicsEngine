@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 
 
-//TODO: Implement method for multiplication by matrix
-
 /**
  * Class for creating and managing Vectors
  */
