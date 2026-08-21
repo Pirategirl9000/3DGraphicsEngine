@@ -7,66 +7,89 @@ public class AbstractCamera {
     /**
      * The orientation of the camera relative to the y-axis
      */
-    protected double pitch;
+    protected double yAngle;
 
     /**
      * The orientation of the camera relative to the x-axis
      */
-    protected double yaw;
+    protected double xAngle;
 
     /**
      * The orientation of the camera relative to the z-axis
      */
-    protected double roll;
+    protected double zAngle;
 
     /**
      * constant value for 2PI radians
      */
     private final double TWOPI = 2 * Math.PI;
 
-
     /**
-     * Retrieves the {@link #pitch} of the camera
+     * Retrieves the {@link #yAngle} of the camera
      */
-    public double pitch() {
-        return this.pitch;
+    public double getyAngle() {
+        return this.yAngle;
     }
 
     /**
-     * Retrieves the {@link #yaw} of the camera
+     * Retrieves the {@link #xAngle} of the camera
      */
-    public double yaw() {
-        return this.yaw;
+    public double getxAngle() {
+        return this.xAngle;
     }
 
     /**
-     * Retrieves the {@link #roll} of the camera
+     * Retrieves the {@link #zAngle} of the camera
      */
-    public double roll() {
-        return this.roll;
+    public double getzAngle() {
+        return this.zAngle;
     }
 
     /**
-     * Adjusts the camera's {@link #pitch}
-     * @param angle the amount in radians to increase it by
+     * Sets the camera's {@link #yAngle}
+     * @param yAngle the new y angle in radians
      */
-    public void pitch(double angle) {
-        this.pitch = (this.pitch + angle) % TWOPI;
+    public void setyAngle(double yAngle) {
+        this.yAngle = yAngle;
     }
 
     /**
-     * Adjusts the camera's {@link #yaw}
-     * @param angle the amount in radians to increase it by
+     * Sets the camera's {@link #xAngle}
+     * @param xAngle the new x angle in radians
      */
-    public void yaw(double angle) {
-        this.yaw = (this.yaw + angle) % TWOPI;
+    public void setxAngle(double xAngle) {
+        this.xAngle = xAngle;
     }
 
     /**
-     * Adjusts the camera's {@link #roll}
-     * @param angle the amount in radians to increase it by
+     * Sets the camera's {@link #zAngle}
+     * @param zAngle the new z angle in radians
      */
-    public void roll(double angle) {
-        this.roll = (this.roll + angle) % TWOPI;
+    public void setzAngle(double zAngle) {
+        this.zAngle = zAngle;
+    }
+
+    /**
+     * Adjusts the camera's {@link #yAngle}
+     * @param amount the amount in radians to increase it by
+     */
+    public void pitch(double amount) {
+        this.yAngle = (this.yAngle + amount) % TWOPI;
+    }
+
+    /**
+     * Adjusts the camera's {@link #xAngle}
+     * @param amount the amount in radians to increase it by
+     */
+    public void yaw(double amount) {
+        this.xAngle = (this.xAngle + amount) % TWOPI;
+    }
+
+    /**
+     * Adjusts the camera's {@link #zAngle}
+     * @param amount the amount in radians to increase it by
+     */
+    public void roll(double amount) {
+        this.zAngle = (this.zAngle + amount) % TWOPI;
     }
 }
