@@ -1,9 +1,16 @@
 package Rendering.Scene;
 
+import Rendering.Math.Vectors.Vector3;
+
 /**
  * Abstract class for handling cameras
  */
 public class AbstractCamera {
+    /**
+     * The position of this camera
+     */
+    protected Vector3 position;
+
     /**
      * The orientation of the camera relative to the y-axis
      */
@@ -23,6 +30,88 @@ public class AbstractCamera {
      * constant value for 2PI radians
      */
     private final double TWOPI = 2 * Math.PI;
+
+    /**
+     * Returns the position of the camera in its native form of Vector3
+     * @return Vector3 representing the camera's x, y, z position
+     */
+    public Vector3 getPositionVector() {
+        return this.position;
+    }
+
+    /**
+     * Returns the position of the camera as an array
+     * @return Double[] representing the camera's x, y, z position
+     */
+    public Double[] getPosition() {
+        return this.position.toArray();
+    }
+
+    /**
+     * Sets the camera's position using a Vector3
+     * @param position the new position for the camera
+     */
+    public void setPosition(Vector3 position) {
+        this.position = position;
+    }
+
+    /**
+     * Sets the camera's position to the new coordinates
+     * @param x the x coord
+     * @param y the y coord
+     * @param z the z coord
+     */
+    public void setPosition(Double x, Double y, Double z) {
+        this.position = new Vector3(x, y, z);
+    }
+
+    /**
+     * Returns the camera's x position
+     * @return the x position of the camera
+     */
+    public Double x() {
+        return this.position.x();
+    }
+
+    /**
+     * Returns the camera's y position
+     * @return the y position of the camera
+     */
+    public Double y() {
+        return this.position.y();
+    }
+
+    /**
+     * Returns the camera's z position
+     * @return the z position of the camera
+     */
+    public Double z() {
+        return this.position.z();
+    }
+
+    /**
+     * Shortcut for incrementing the x position
+     * @param amount the amount to increment by
+     */
+    public void incX(double amount) {
+        this.position.alter(0, this.position.x() + amount);
+    }
+
+    /**
+     * Shortcut for incrementing the y position
+     * @param amount the amount to increment by
+     */
+    public void incY(double amount) {
+        this.position.alter(1, this.position.y() + amount);
+    }
+
+    /**
+     * Shortcut for incrementing the z position
+     * @param amount the amount to increment by
+     */
+    public void incZ(double amount) {
+        this.position.alter(2, this.position.z() + amount);
+    }
 
     /**
      * Retrieves the {@link #yAngle} of the camera
