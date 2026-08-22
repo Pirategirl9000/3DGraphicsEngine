@@ -62,7 +62,9 @@ public class AbstractCamera {
      * @param z the z coord
      */
     public void setPosition(Double x, Double y, Double z) {
-        this.position = new Vector3(x, y, z);
+        this.position.x(x);
+        this.position.y(y);
+        this.position.z(z);
     }
 
     /**
