@@ -111,6 +111,27 @@ public class Vector extends AbstractVector {
     }
 
     /**
+     * Returns the difference vector of this vector and another without mutating the original
+     * @param v2 The other vector to subtract from this one
+     * @return A new vector that is the difference
+     */
+    @Override
+    public Vector getDiff(AbstractVector v2) {
+        if (v2.size() != this.size()) throw new VectorLengthMismatch("Vectors must have equal length to subtract");
+
+        Double[] newElements = new Double[this.size()];
+
+        synchronized (this) {
+            for (int i = 0; i < this.size(); i++) {
+                newElements[i] = this.elements[i] - v2.get(i);
+            }
+        }
+
+
+        return new Vector(newElements);
+    }
+
+    /**
      * Returns this vector scaled by some constant without mutating the original
      * @param scalar The value to scale by
      * @see #scale(Double) 

@@ -103,6 +103,20 @@ public abstract class AbstractVector implements Collection<Double> {
     }
 
     /**
+     * Subtracts another vector from this one
+     * @param v2 The other vector to subtract from this one
+     */
+    public void subtract(@NotNull AbstractVector v2) {
+        if (v2.size() != this.size()) throw new VectorLengthMismatch("Vectors must have equal length to subtract");
+
+        synchronized (this) {
+            for (int i = 0; i < this.size(); i++) {
+                this.elements[i] -= v2.get(i);
+            }
+        }
+    }
+
+    /**
      * Scales this vector by the given scalar
      * @param scalar The value to scale by
      */
@@ -214,6 +228,13 @@ public abstract class AbstractVector implements Collection<Double> {
      * @return A new vector that is the sum
      */
     public abstract AbstractVector getSum(AbstractVector v2);
+
+    /**
+     * Returns the difference vector of this vector and another without mutating the original
+     * @param v2 The other vector to subtract from this one
+     * @return A new vector that is the difference
+     */
+    public abstract AbstractVector getDiff(AbstractVector v2);
 
     /**
      * Returns this vector scaled by some constant without mutating the original
