@@ -26,7 +26,7 @@ public class Scene3 extends JPanel {
      * Creates a new 3D scene with a default camera
      */
     public Scene3() {
-        this(new Camera());
+        this(new Camera3D());
     }
 
     /**
