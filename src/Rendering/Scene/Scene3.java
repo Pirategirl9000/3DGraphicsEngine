@@ -12,13 +12,13 @@ public class Scene3 extends JPanel {
     /**
      * The camera for this scene
      */
-    private AbstractCamera camera;
+    private Camera3D camera;
 
     /**
      * Creates a new 3D scene with a configured camera
      * @param camera The camera for this scene
      */
-    public Scene3(@NotNull AbstractCamera camera) {
+    public Scene3(@NotNull Camera3D camera) {
         this.camera = camera;
     }
 
@@ -33,14 +33,14 @@ public class Scene3 extends JPanel {
      * Sets a new camera for this scene
      * @param camera The new camera
      */
-    public void setCamera(@NotNull AbstractCamera camera) {
+    public void setCamera(@NotNull Camera3D camera) {
         this.camera = camera;
     }
 
     /**
      * Gets the camera for this scene
      */
-    public AbstractCamera getCamera() {
+    public Camera3D getCamera() {
         return this.camera;
     }
 

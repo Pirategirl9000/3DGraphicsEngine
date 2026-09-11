@@ -1,11 +1,12 @@
 package Rendering.Scene;
 
+import Rendering.Math.Vectors.Vector;
 import Rendering.Math.Vectors.Vector3;
 
 /**
  * Abstract class for handling cameras
  */
-public class AbstractCamera {
+public class Camera3D {
     /**
      * The position of this camera
      */
@@ -25,6 +26,21 @@ public class AbstractCamera {
      * The orientation of the camera relative to the z-axis
      */
     protected double zAngle;
+
+    /**
+     * The distance from the camera before we start rendering things
+     */
+    protected double nearClip;
+
+    /**
+     * How far away before we stop rendering things
+     */
+    protected double farClip;
+
+    /**
+     * This is the z coordinate of the plane we are projecting the scene onto
+     */
+    protected double projectionPlaneZ;
 
     /**
      * constant value for 2PI radians
@@ -182,5 +198,49 @@ public class AbstractCamera {
      */
     public void roll(double amount) {
         this.zAngle = (this.zAngle + amount) % TWOPI;
+    }
+
+    /**
+     * Returns the given point projected onto the image plane as a 2D vector
+     */
+    public Vector getProjectedPoint(Vector3 point) {
+        // Get the position vector relative to the camera
+        Vector3 positionVector = (Vector3) point.getDiff(this.position);
+
+        double x = positionVector.x();
+        double y = positionVector.y();
+        double z = positionVector.z();
+
+        final double sx = Math.sin(x);
+        final double sy = Math.sin(y);
+        final double sz = Math.sin(z);
+
+        final double cx = Math.cos(x);
+        final double cy = Math.cos(y);
+        final double cz = Math.cos(z);
+
+
+        // Apply the camera angle transforms per a left-handed system
+        double dx = cy * (sz * y + cz * x) - sy * z;
+        double dy = sx * (cy * z + sy * (sz * y + cz * x)) + cx * (cz * y - sz * x);
+        double dz = cx * (cy * z + sy * (sz * y + cz * x)) - sx * (cz * y - sz * x);
+
+        // Project the point onto the plane
+        double zAvgInv = this.projectionPlaneZ / dz;
+
+        x = zAvgInv * x;
+        y = zAvgInv * y;
+
+        return new Vector(x, y);
+    }
+
+    /**
+     * Returns whether the given point is in the camera's view frustrum
+     * @return whether the point is in view of the camera
+     */
+    public boolean inView(Vector3 point) {
+        Vector3 diffVec = (Vector3) point.getDiff(this.position);
+
+        return !(diffVec.z() > farClip) && !(diffVec.z() < nearClip);
     }
 }
