@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Class for handling 3D scenes using a swing JPanel
  */
-public class Scene3 extends JPanel implements Runnable {
+public class Scene3 extends Component implements Runnable {
     /**
      * The camera for this scene
      */
@@ -32,9 +32,7 @@ public class Scene3 extends JPanel implements Runnable {
         // This is responsible for repainting the scene
         Thread painter = new Thread(this);
 
-
         painter.start();
-
     }
 
     /**
@@ -55,8 +53,9 @@ public class Scene3 extends JPanel implements Runnable {
 
 
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         g.clearRect(0, 0, 10000, 10000);
+
     }
 
     /**
@@ -83,7 +82,5 @@ public class Scene3 extends JPanel implements Runnable {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(scene);
-
-
     }
 }
