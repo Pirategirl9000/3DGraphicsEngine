@@ -47,6 +47,16 @@ public class Camera3D {
      */
     private final double TWOPI = 2 * Math.PI;
 
+    public Camera3D(double x, double y, double z, double xAngle, double yAngle, double zAngle, double near, double far, double imagePlaneZ) {
+        this.position = new Vector3(x, y, z);
+        this.xAngle = xAngle;
+        this.yAngle = yAngle;
+        this.zAngle = zAngle;
+        this.nearClip = near;
+        this.farClip = far;
+        this.projectionPlaneZ = imagePlaneZ;
+    }
+
     /**
      * Returns the position of the camera in its native form of Vector3
      * @return Vector3 representing the camera's x, y, z position
@@ -205,19 +215,19 @@ public class Camera3D {
      */
     public Vector getProjectedPoint(Vector3 point) {
         // Get the position vector relative to the camera
-        Vector3 positionVector = (Vector3) point.getDiff(this.position);
+        Vector positionVector = point.getDiff(this.position);
 
-        double x = positionVector.x();
-        double y = positionVector.y();
-        double z = positionVector.z();
+        double x = positionVector.get(0);
+        double y = positionVector.get(1);
+        double z = positionVector.get(2);
 
-        final double sx = Math.sin(x);
-        final double sy = Math.sin(y);
-        final double sz = Math.sin(z);
+        final double sx = Math.sin(this.getxAngle());
+        final double sy = Math.sin(this.getyAngle());
+        final double sz = Math.sin(this.getzAngle());
 
-        final double cx = Math.cos(x);
-        final double cy = Math.cos(y);
-        final double cz = Math.cos(z);
+        final double cx = Math.cos(this.getxAngle());
+        final double cy = Math.cos(this.getyAngle());
+        final double cz = Math.cos(this.getzAngle());
 
 
         // Apply the camera angle transforms per a left-handed system
@@ -228,8 +238,12 @@ public class Camera3D {
         // Project the point onto the plane
         double zAvgInv = this.projectionPlaneZ / dz;
 
-        x = zAvgInv * x;
-        y = zAvgInv * y;
+        x = zAvgInv * dx;
+        y = zAvgInv * dy;
+
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(dz);
 
         return new Vector(x, y);
     }

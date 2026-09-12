@@ -1,5 +1,7 @@
 package Rendering.Scene;
 
+import Rendering.Math.Vectors.Vector;
+import Rendering.Math.Vectors.Vector3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -8,25 +10,31 @@ import java.awt.*;
 /**
  * Class for handling 3D scenes using a swing JPanel
  */
-public class Scene3 extends JPanel {
+public class Scene3 extends JPanel implements Runnable {
     /**
      * The camera for this scene
      */
     private Camera3D camera;
 
     /**
+     * Refresh rate for the scene
+     */
+    private long FRAMERATE;
+
+    /**
      * Creates a new 3D scene with a configured camera
      * @param camera The camera for this scene
      */
-    public Scene3(@NotNull Camera3D camera) {
+    public Scene3(@NotNull Camera3D camera, int FPS) {
         this.camera = camera;
-    }
+        this.FRAMERATE = 1000 / FPS;
 
-    /**
-     * Creates a new 3D scene with a default camera
-     */
-    public Scene3() {
-        this(new Camera3D());
+        // This is responsible for repainting the scene
+        Thread painter = new Thread(this);
+
+
+        painter.start();
+
     }
 
     /**
@@ -48,18 +56,34 @@ public class Scene3 extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        g.setColor(new Color(0 ,0, 0));
-        g.fillRect(50, 50, 50, 50);
+        g.clearRect(0, 0, 10000, 10000);
+    }
+
+    /**
+     * Runs this operation.
+     */
+    @Override
+    public void run() {
+        long lastPaint = System.currentTimeMillis();
+
+        while (true) {
+            if (System.currentTimeMillis() - lastPaint >= this.FRAMERATE) {
+                this.repaint();
+                lastPaint = System.currentTimeMillis();
+            }
+        }
     }
 
     public static void main(String[] args) {
-        Scene3 scene = new Scene3();
         JFrame frame = new JFrame();
+        Scene3 scene = new Scene3(new Camera3D(0, 0, 0, 0, 0, 0, 0, 1000, 2), 30);
 
-        frame.add(scene);
-        frame.setSize(500, 500);
+
+        frame.setSize(800, 800);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.repaint();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(scene);
+
+
     }
 }
