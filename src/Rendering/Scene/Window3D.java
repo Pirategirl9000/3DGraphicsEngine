@@ -11,6 +11,9 @@ import java.awt.*;
  * Main class for 3D rendering. Is a displayable JWindow with the Scene3D placed inside it
  */
 public class Window3D extends JWindow {
+    /**
+     * The 3DScene tied to this 3D window
+     */
     private final Scene3D scene;
 
     /**
