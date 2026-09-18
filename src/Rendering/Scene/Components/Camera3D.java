@@ -1,4 +1,4 @@
-package Rendering.Scene;
+package Rendering.Scene.Components;
 
 import Rendering.Math.Vectors.Vector;
 import Rendering.Math.Vectors.Vector3;
