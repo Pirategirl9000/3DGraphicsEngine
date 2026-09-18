@@ -30,7 +30,7 @@ public class Scene3D extends Component implements Runnable {
     private final int HEIGHT;
 
     /**
-     *
+     * The adjusted clip bounds for this component, used every repaint
      */
     private final Shape CLIPBOUNDS;
 
