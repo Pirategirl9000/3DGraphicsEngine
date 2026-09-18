@@ -40,9 +40,9 @@ public class Scene3D extends Component implements Runnable {
      * @param FPS The refresh rate for the scene
      * @param height The height of this component
      * @param width The width of this component
-     * @deprecated Due to window clipping and insets standard users should instead use {@link Window3D#Window3D}
+     * @deprecated Due to window clipping and insets standard users should instead use {@link Window3D#Window3D} for building and displaying their 3D scenes
      */
-    @Deprecated()
+    @Deprecated
     public Scene3D(@NotNull Camera3D camera, int FPS, int width, int height) {
         this.camera = camera;
         this.FRAMERATE = 1000 / FPS;
